@@ -50,3 +50,14 @@ class TreePrinter {
 		return; 
 	}
 }
+
+print each level in a format with relative position preserved???
+       eg.         1
+                   /   \
+                2      4
+                 \        \
+                 3        7
+    output:
+                   1
+               2     4
+                3     7
