@@ -15,6 +15,8 @@ input: 0
 1 => true 
 2 => false */ 
 
+// 考虑size = 1情况
+
 public boolean canPlaceFlowers(List<Boolean> flowerbed, int numberToPlace) { 
 
 	// Implementation here 
