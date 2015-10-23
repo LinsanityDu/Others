@@ -20,6 +20,37 @@ Boolean canIWin(int maxChoosableInteger, int desiredTotal) {
 
 }
 
+先手胜的情况是
+n 轮(先手): 当前的数组中存在一个数使得 Sum > target.
+n-1轮(后手): 当前的数组中选任何一个数 X 都不能使得 Sum > target. 但是当后手选完之后存在一个数可使得 Sum > target. 鐣欏鐢宠璁哄潧-涓€浜╀笁鍒嗗湴
+
+代码也不长
+public class PickUpNumbers {
+    public boolean canIWin(int[] numberPool, int target) {
+        boolean isEmpty = true;
+        for (int data : numberPool)
+            if (data > 0) isEmpty = false; 
+        if (isEmpty) return false;
+        else {. 鍥磋鎴戜滑@1point 3 acres
+            if (target <= 0) return false;
+            for (int data : numberPool)
+                if (data > 0 && data >= target) return true;
+            boolean canIWinFlag = false;
+            for (int i = 0; i < numberPool.length && numberPool[i] > 0; ++i) {
+                int data = numberPool[i];
+                numberPool[i] = -1;
+                canIWinFlag = canIWinFlag || !canIWin(numberPool, target - data); // other's turn
+                numberPool[i] = data;
+            }
+            return canIWinFlag;
+        }
+    }
+    public static void main(String[] args) {
+        int[] numberPool = {1, 2, 3};
+        System.out.println(new PickUpNumbers().canIWin(numberPool, 5));-google 1point3acres
+        System.out.println(new PickUpNumbers().canIWin(numberPool, 4));
+    }
+}
 
 
 
