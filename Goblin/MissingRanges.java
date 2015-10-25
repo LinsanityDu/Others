@@ -9,13 +9,50 @@ public class Solution {
     }
 }
 
+// My code
+public class Solution {
+    public List<String> findMissingRanges(int[] nums, int lower, int upper) {
+        List<String> res = new ArrayList<String>();
+        if (nums == null || nums.length == 0) {
+            if (upper == lower) {
+                res.add(String.valueOf(lower));
+            }
+            else {
+                res.add(String.valueOf(lower) + "->" + String.valueOf(upper));
+            }
+            return res;
+        }
+        for (int i = 0; i < nums.length - 1; i++) {
+            if (nums[i] + 1 == nums[i + 1]) {
+                continue;
+            } else {
+                if (nums[i + 1] - nums[i] == 2) {
+                    res.add(String.valueOf(nums[i] + 1));
+                } else {
+                    res.add(String.valueOf(nums[i] + 1) + "->" + String.valueOf(nums[i + 1] - 1));
+                }
+            }
+        }
+        if (nums[0] == lower + 1) {
+            res.add(0, String.valueOf(lower));
+        } else if (nums[0] > lower + 1) {
+            res.add(0, String.valueOf(lower) + "->" + String.valueOf(nums[0] - 1));
+        }
+        if (nums[nums.length - 1] + 1 == upper) {
+            res.add(String.valueOf(upper));
+        } else if (nums[nums.length - 1] + 1 < upper) {
+            res.add(String.valueOf(nums[nums.length - 1] + 1) + "->" + String.valueOf(upper));
+        }
+        return res;
+    }
+}
 
 
 public class Solution {
     public List<String> findMissingRanges(int[] A, int lower, int upper) {
         List<String> result = new ArrayList<String>();
         int pre = lower - 1;
-        for(int i = 0 ; i <= A.length  ; i++){
+        for(int i = 0 ; i <= A.length; i++){
             int after = i == A.length ? upper + 1 : A[i]; 
             if(pre + 2 == after){
                 result.add(String.valueOf(pre + 1));

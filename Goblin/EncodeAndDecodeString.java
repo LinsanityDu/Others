@@ -43,6 +43,8 @@ public class Codec {
 // Codec codec = new Codec();
 // codec.decode(codec.encode(strs));
 
+public int indexOf(int ch, int fromIndex): Returns the index within this string of the first occurrence of the specified character, starting the search at the specified index or -1 if the character does not occur.
+
 
 public class Codec {
 
