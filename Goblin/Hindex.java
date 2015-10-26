@@ -21,6 +21,21 @@ public class Solution {
 
 
 public class Solution {
+    public int hIndex(int[] citations) {
+        if (citations == null || citations.length == 0) return 0;
+        Arrays.sort(citations);
+        int len = citations.length;
+        for (int i = 0; i < citations.length; i++) {
+            if (len <= citations[i])
+                return len;
+            else
+                len--;
+        }
+        return len;
+    }
+}
+
+public class Solution {
     // 9.3 70 years diaoZhaTian China jiaYou 
     public int hIndex(int[] citations) {
         int length = citations.length;
