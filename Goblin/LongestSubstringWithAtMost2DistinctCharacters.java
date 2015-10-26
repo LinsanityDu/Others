@@ -26,7 +26,21 @@ int lengthOfLongestSubstringTwoDistinct(string s) {
         return maxLen > (s.size() - i) ? maxLen : s.size() - i;
     }
 
-
+public int lengthOfLongestSubstringTwoDistinct(String s) {
+    HashMap<Character, Integer> hm = new HashMap<>();
+    int longest = 0;
+    int ptr = 0;
+    for(int i = 0; i < s.length(); i++) {
+        if(!hm.containsKey(s.charAt(i)) && hm.size() == 2) {
+            int leftmost = Collections.min(hm.values());
+            hm.remove(s.charAt(leftmost));
+            ptr = s.indexOf((char) hm.keySet().toArray()[0], leftmost);
+        }
+        hm.put(s.charAt(i), i);
+        longest = Math.max(longest, i - ptr + 1);
+    }
+    return longest;
+}
 
 /*
     This question belong to the same category as those such as "longest substring without repeating characters", "minimum window substring", and "substring with concatenation of all words". To solve this kind of question we can use two pointers and a hash table. When the key of the hash table is char, we can simply use an array as the hash table. The most important idea in solving this kind of questions is "how to update the "start" pointer" and the solution to these questions seem usually differ only in this respect.*/

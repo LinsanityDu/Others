@@ -32,3 +32,17 @@ public class Solution {
         return dp[n][m];
     }
 }
+
+Use f[i][j] to represent the shortest edit distance between word1[0,i) and word2[0, j). Then compare the last character of word1[0,i) and word2[0,j), which are c and d respectively (c == word1[i-1], d == word2[j-1]):
+
+if c == d, then : f[i][j] = f[i-1][j-1]
+
+Otherwise we can use three operations to convert word1 to word2:
+
+(a) if we replaced c with d: f[i][j] = f[i-1][j-1] + 1;
+
+(b) if we added d after c: f[i][j] = f[i][j-1] + 1;
+
+(c) if we deleted c: f[i][j] = f[i-1][j] + 1;
+
+Note that f[i][j] only depends on f[i-1][j-1], f[i-1][j] and f[i][j-1], therefore we can reduce the space to O(n) by using only the (i-1)th array and previous updated element(f[i][j-1]).

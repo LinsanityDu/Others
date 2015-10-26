@@ -67,6 +67,43 @@ class Solution {
     }
 }
 
+// Another
+Assume we have a binary tree below:
+
+    _30_ 
+   /    \    
+  10    20
+ /     /  \ 
+50    45  35
+Using pre-order traversal, the algorithm should write the following to a file:
+
+30 10 50 # # # 20 45 # # 35 # #
+
+/*SERIALIZE: The pre-order traversal code below does all the job to serialize a binary tree, believe it or not!*/
+
+void writeBinaryTree(BinaryTree *p, ostream &out) {
+  if (!p) {
+    out << "# ";
+  } else {
+    out << p->data << " ";
+    writeBinaryTree(p->left, out);
+    writeBinaryTree(p->right, out);
+  }
+}
+//deserialize
+void readBinaryTree(BinaryTree *&p, ifstream &fin) {
+  int token;
+  bool isNumber;
+  if (!readNextToken(token, fin, isNumber)) 
+    return;
+  if (isNumber) {
+    p = new BinaryTree(token);
+    readBinaryTree(p->left, fin);
+    readBinaryTree(p->right, fin);
+  }
+}
+
+
 
 
 Below is algorithm for encoding:

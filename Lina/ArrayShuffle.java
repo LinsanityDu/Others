@@ -1,4 +1,4 @@
-public static int[] RandomizeArray(int[] array){
+/*public static int[] RandomizeArray(int[] array){
 		Random rgen = new Random();  // Random number generator			
  
 		for (int i=0; i<array.length; i++) {
@@ -9,7 +9,18 @@ public static int[] RandomizeArray(int[] array){
 		}
  
 		return array;
-	}
+	}*/
+
+public void shuffle(int[] A) {
+    if (A == null || A.length == 0) return;
+    for (int i = 0; i < A.length-1; ++i) {
+        int random = Math.random()*(A.length-i) + i;
+        int temp = A[i];
+        A[i] = A[random];
+        A[random] = temp;
+    }
+}
+
 
 
 Java Random使用
