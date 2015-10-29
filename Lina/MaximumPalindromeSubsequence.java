@@ -62,6 +62,37 @@ public int longestPalindromeSubsequence(int[] nums) {
 }
 
 
+
+public static void main(String[] args) {
+    int arr[] = new int[] { 4, 1, 2, 3, 4, 5, 6, 5, 4, 3, 4, 4, 4, 4, 4, 4,
+        4 };
+    int n = arr.length;
+    int[][] DP = new int[n + 1][n + 1];
+    int[][] backPointers = new int[n + 1][n + 1];
+    for (int i = 1; i < DP.length; i++) {
+      DP[i][i] = 1;
+    }
+
+    for (int l = 2; l <= n; l++) {
+      for (int i = 1; i <= n - l + 1; i++) {
+        int j = i + l - 1;
+        if (arr[i - 1] == arr[j - 1]) {
+          DP[i][j] = 2 + DP[i + 1][j - 1];
+          backPointers[i][j] = 1;
+        } else {
+          if (DP[i][j - 1] > DP[i + 1][j]) {
+            DP[i][j] = DP[i][j - 1];
+          } else {
+            DP[i][j] = DP[i + 1][j];
+          }
+        }
+      }
+    }
+    System.out.println("max palindrome length " + DP[1][n]);
+  }
+
+
+  
 int max (int x, int y) { return (x > y)? x : y; }
  
 // Returns the length of the longest palindromic subsequence in seq

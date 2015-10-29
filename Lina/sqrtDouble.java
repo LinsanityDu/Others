@@ -40,6 +40,38 @@ return 0;
 }
 
 
+class SQRT 
+{ 
+public static void main(String args[]) 
+{ 
+Scanner sc=new Scanner(System.in); 
+System.out.println("Enter a positive no. to find sqrt"); 
+float n=sc.nextFloat(); 
+if(n<0) 
+{ 
+System.out.println("negative don't have square roots"); 
+System.exit(0); 
+} 
+float y=sqrt(n); 
+System.out.println("sqrt is "+y); 
+} 
+static float sqrt(float n) 
+{ 
+float low=0,high=n; 
+float mid=(low+high)/2; 
+while(Math.abs(mid*mid-n)>0.00001) 
+{ 
+
+if(mid*mid<n) 
+low=mid; 
+else if(mid*mid>n) 
+high=mid; 
+mid=(low+high)/2; 
+} 
+return mid; 
+} 
+}
+
 // Nine Chapter
 class Solution {
     /**

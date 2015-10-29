@@ -61,6 +61,53 @@ public class PickUpNumbers {
 然后是sum>target, 双方的目标是要至少保证选完数x后target-x > 数组里留下的最大数，然后递归，根据回合数的奇偶判断是true还是false。然后就这个逻辑不知道该怎么实现了。。。. 
 为啥就不能碰个面经里的题呢>.<
 
+// From CareerCup
+public class pickNumber { 
+public static boolean canIWin (int maxNumber, int target) { 
+return canIWin(maxNumber, target, new int[2], 0, new boolean[maxNumber]); 
+} 
+public static boolean canIWin(int maxNumber, int target, int[] players, int times, boolean[] visited) { 
+int count = 0; 
+for(boolean b : visited) { 
+if(!b) count++; 
+} 
+if(count == 0) return false; 
+if(times % 2 == 0) { 
+for(int i = 1; i <= maxNumber; i++) { 
+if(!visited[i - 1]) { 
+visited[i - 1] = true; 
+players[0] += i; 
+if(players[0] >= target || canIWin(maxNumber, target, players, times + 1, visited)) return true; 
+visited[i - 1] = false; 
+players[0] -= i; 
+} 
+} 
+} 
+else { 
+for(int i = 1; i <= maxNumber; i++) { 
+boolean b = false; 
+if(!visited[i - 1] && players[1] + i < target) { 
+b = true; 
+visited[i - 1] = true; 
+players[1] += i; 
+if(canIWin(maxNumber, target, players, times + 1, visited)) return true; 
+visited[i - 1] = false; 
+players[1] -= i; 
+} 
+if(!b) return false; 
+} 
+} 
+return false; 
+} 
+public static void main(String[] args) { 
+System.out.println(canIWin(3, 3)); 
+System.out.println(canIWin(3, 4)); 
+System.out.println(canIWin(3, 5)); 
+System.out.println(canIWin(3, 6)); 
+} 
+}
+
+
 private static boolean helper(ArrayList<Integer> numList, int target) {
                 /* empty list, return false */.1point3acres缃�
                 if(numList.size() == 0) {.鐣欏璁哄潧-涓€浜�-涓夊垎鍦�

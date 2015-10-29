@@ -16,3 +16,42 @@ The problem clearly say that we need to flatten level by level. The idea of solu
 			tmp = tmp->next;
 		tail = tmp;
     II) move to the next node. i.e. cur = cur->next 
+
+
+
+/* The main function that flattens a multilevel linked list */
+void flattenList(struct node *head)
+{
+    /*Base case*/
+    if (head == NULL)
+       return;
+ 
+    struct node *tmp;
+ 
+    /* Find tail node of first level linked list */
+    struct node *tail = head;
+    while (tail->next != NULL)
+        tail = tail->next;
+ 
+    // One by one traverse through all nodes of first level
+    // linked list till we reach the tail node
+    struct node *cur = head;
+    while (cur != tail)
+    {
+        // If current node has a child
+        if (cur->child)
+        {
+            // then append the child at the end of current list
+            tail->next = cur->child;
+ 
+            // and update the tail to new last node
+            tmp = cur->child;
+            while (tmp->next)
+                tmp = tmp->next;
+            tail = tmp;
+        }
+ 
+        // Change current node
+        cur = cur->next;
+    }
+}

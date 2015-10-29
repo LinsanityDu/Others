@@ -11,14 +11,14 @@ public class MinimumDiffBetweenArrays {
 		int[] b = {7,10,16,19}; 
 		int ans = Math.abs(a[i]-b[j]); 
 		while(i<a.length && j<b.length) { 
-		if(a[i] < b[j]) { 
-		min = b[j] - a[i]; 
-		i++; 
-		} else { 
-		min = a[i] - b[j]; 
-		j++; 
-		} 
-		ans = ans>min?min:ans; 
+			if(a[i] < b[j]) { 
+				min = b[j] - a[i]; 
+				i++; 
+			} else { 
+				min = a[i] - b[j]; 
+				j++; 
+			} 
+			ans = ans>min?min:ans; 
 		} 
 		System.out.println(ans); 
 	} 

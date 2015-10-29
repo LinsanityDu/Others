@@ -16,7 +16,26 @@ input: 0
 2 => false */ 
 
 // 考虑size = 1情况
-
+public boolean canPlaceFlowers(List<Boolean> flowerbed, int numberToPlace) { 
+	if (size == 0 || size < numberToPlace)
+	{
+	    return false;
+	}
+	    
+	if (numberToPlace == 0)
+	{
+	    return true;
+	}
+	flowerbed.add(0, true);
+	flowerbed.add(flowerbed.size() - 1, true);
+	for (int i = 1; i < flowerbed.size() - 1, i++) {
+		if (flowerbed.get(i) && flowerbed.get(i - 1) && flowerbed.get(i + 1)) {
+			numberToPlace--;
+			flowerbed.set(i, true);
+		}
+	}
+	return numberToPlace == 0;
+}
 public boolean canPlaceFlowers(List<Boolean> flowerbed, int numberToPlace) { 
 
 	// Implementation here 
@@ -53,10 +72,6 @@ public boolean canPlaceFlowers(List<Boolean> flowerbed, int numberToPlace) {
 		if (numberToPlace == 0) return true;
 	}
 	return numberToPlace == 0;
-
-
-
-
 }
 
 

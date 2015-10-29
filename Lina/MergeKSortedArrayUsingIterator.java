@@ -23,7 +23,7 @@ public Iterable<Integer> mergeKSortedIterators(Iterator<Integer>[] iters){
     }
 
     public class IntIter {
-        int next;.
+        int next;
         Iterator<Integer> iter;
         public IntIter(Iterator<Integer> iter) {
             this.next = iter.next();

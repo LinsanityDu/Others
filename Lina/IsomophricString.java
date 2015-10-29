@@ -49,13 +49,14 @@ public class Solution {
             char b = t.charAt(i);
             if(map.containsKey(a)){
                 if(map.get(a).equals(b))
-                continue;
+                    continue;
                 else
-                return false;
+                    return false;
             }else{
                 if(!map.containsValue(b))
-                map.put(a,b);
-                else return false;
+                    map.put(a,b);
+                else 
+                    return false;
 
             }
         }
