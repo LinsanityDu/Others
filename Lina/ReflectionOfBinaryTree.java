@@ -1,4 +1,13 @@
-
+TreeNode mirror(TreeNode root) {
+  if (root == NULL)
+     return NULL;
+  else {
+    TreeNode newNode = new TreeNode(root.val);
+    newNode->left = mirror(root->right);
+    newNode->right = mirror(root->left);
+    return newNode;
+  }
+}
 
      4
    /   \

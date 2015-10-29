@@ -34,7 +34,6 @@ public class Solution {
             result.add(new ArrayList<Integer>(list));
             return;
         }
-        int prev = -1;
         for (int i = pos; i < candidates.length; i++) {
             if (candidates[i] > target) {
                 break;
@@ -48,7 +47,7 @@ public class Solution {
 }
 
 
-
+// Nine Chapter
 public class Solution {
     public  ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
@@ -85,6 +84,45 @@ public class Solution {
             path.remove(path.size() - 1);
 
             prev = candidates[i];
+        }
+    }
+}
+
+
+// Based on Combination Sum2
+public class Solution {
+    private List<List<Integer>> results;
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        if (candidates.length < 1) {
+            return results;
+        }
+
+        List<Integer> path = new ArrayList<Integer>();
+        Arrays.sort(candidates);
+        results = new ArrayList<List<Integer>> ();
+        combinationSumHelper(path, candidates, target, 0);
+
+        return results;
+    }
+    
+    
+    private void combinationSumHelper(List<Integer> path, int[] candidates, int sum, int pos) {
+        if (sum == 0) {
+            results.add(new ArrayList<Integer>(path));
+        }
+
+        if (pos >= candidates.length || sum < 0) {
+            return;
+        }
+
+        for (int i = pos; i < candidates.length; i++) {
+            if (i > pos && candidates[i] == candidates[i - 1]){
+                continue;
+            } else {
+                path.add(candidates[i]);
+                combinationSumHelper(path, candidates, sum - candidates[i], i);
+                path.remove(path.size()-1);
+            }
         }
     }
 }

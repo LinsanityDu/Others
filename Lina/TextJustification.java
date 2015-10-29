@@ -18,6 +18,68 @@ Return the formatted lines as:
 ]
 Note: Each word is guaranteed not to exceed L in length.*/
 
+这道题属于纯粹的字符串操作，要把一串单词安排成多行限定长度的字符串。主要难点在于空格的安排，首先每个单词之间必须有空格隔开，而当当前行放不下更多的单词并且字符又不能填满长度L时，我们要把空格均匀的填充在单词之间。如果剩余的空格量刚好是间隔倍数那么就均匀分配即可，否则还必须把多的一个空格放到前面的间隔里面。实现中我们维护一个count计数记录当前长度，超过之后我们计算共同的空格量以及多出一个的空格量，然后将当行字符串构造出来。最后一个细节就是最后一行不需要均匀分配空格，句尾留空就可以，所以要单独处理一下。时间上我们需要扫描单词一遍，然后在找到行尾的时候在扫描一遍当前行的单词，不过总体每个单词不会被访问超过两遍，所以总体时间复杂度是O(n)。而空间复杂度则是结果的大小（跟单词数量和长度有关，不能准确定义，如果知道最后行数r，则是O(r*L)）。代码如下： 
+
+public ArrayList<String> fullJustify(String[] words, int L) {
+    ArrayList<String> res = new ArrayList<String>();
+    if(words==null || words.length==0)
+        return res;
+    int count = 0;
+    int last = 0;
+    for(int i=0;i<words.length;i++)
+    {
+        if(count+words[i].length()+(i-last)>L)
+        {
+            int spaceNum = 0;
+            int extraNum = 0;
+            if(i-last-1>0)
+            {
+                spaceNum = (L-count)/(i-last-1);
+                extraNum = (L-count)%(i-last-1);
+            }
+            StringBuilder str = new StringBuilder();
+            for(int j=last;j<i;j++)
+            {
+                str.append(words[j]);
+                if(j<i-1)
+                {
+                    for(int k=0;k<spaceNum;k++)
+                    {
+                        str.append(" ");
+                    }
+                    if(extraNum>0)
+                    {
+                        str.append(" ");
+                    }
+                    extraNum--;
+                }
+            }
+            for(int j=str.length();j<L;j++)
+            {
+                str.append(" ");
+            }       
+            res.add(str.toString());
+            count=0;
+            last=i;
+        }
+        count += words[i].length();
+    }
+    StringBuilder str = new StringBuilder();
+    for(int i=last;i<words.length;i++)
+    {
+        str.append(words[i]);
+        if(str.length()<L)
+            str.append(" ");
+    }
+    for(int i=str.length();i<L;i++)
+    {
+        str.append(" ");
+    }
+    res.add(str.toString());
+    return res;
+}
+
+
 // Nine Chapter
 public class Solution {
     public ArrayList<String> fullJustify(String[] words, int L) {
@@ -60,4 +122,80 @@ public class Solution {
         for (int i = 0; i < count; i++)
             sb.append(' ');
     }
+}
+
+
+// Same with comments
+public ArrayList<String> fullJustify(String[] words, int L) {
+    ArrayList<String> res = new ArrayList<String>();
+    if(words==null || words.length==0)
+        return res;
+    //count is the current length of total words length of current round(line)
+    int count = 0;
+    // last the last word's index from last round (line)
+    //well.. it is a actually the first one in this round
+    int last = 0;
+    for(int i=0;i<words.length;i++)
+    {
+        //here it is the whole length if adding current word at index i
+        //i-last is the # of space, need to ensure each empty spot has at least one space
+        if(count+words[i].length()+(i-last)>L)
+        {
+            int spaceNum = 0;
+            int extraNum = 0;
+            //if there is more than one word (deal with the special case later)
+            if(i-last-1>0)
+            {
+                //every slot has spaceNum of space
+                spaceNum = (L-count)/(i-last-1);
+                //the first extraNum of slot has 1 extra space
+                extraNum = (L-count)%(i-last-1);
+            }
+            StringBuilder str = new StringBuilder();
+            for(int j=last;j<i;j++)
+            {
+                str.append(words[j]);
+                if(j<i-1)
+                {
+                    for(int k=0;k<spaceNum;k++)
+                    {
+                        str.append(" ");
+                    }
+                    //append an extra space
+                    if(extraNum>0)
+                    {
+                        str.append(" ");
+                    }
+                    extraNum--;
+                }
+            }
+            //this is only for the special case where there is only one word in the line
+            for(int j=str.length();j<L;j++)
+            {
+                str.append(" ");
+            }       
+            res.add(str.toString());
+            count=0;
+            last=i;
+        }
+        //no matter we reach the end (count is reset to 0) or not (keep increment i), we need to add the length to count.
+        count += words[i].length();
+    }
+
+    //deal with the last row
+    StringBuilder str = new StringBuilder();
+    //will only run if there is more word to put in. 
+    //It will reach here only because the length "count+words[i].length()+(i-last)" didn't reach the threshold L
+    for(int i=last;i<words.length;i++)
+    {
+        str.append(words[i]);
+        if(str.length()<L)
+            str.append(" ");
+    }
+    for(int i=str.length();i<L;i++)
+    {
+        str.append(" ");
+    }
+    res.add(str.toString());
+    return res;
 }

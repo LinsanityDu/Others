@@ -3,7 +3,45 @@ Design an algorithm and write code to serialize and deserialize a binary tree. W
 There is no limit of how you deserialize or serialize a binary tree, you only need to make sure you can serialize a binary tree to a string and deserialize this string to the original structure.
 
 An example of testdata: Binary tree {3,9,20,#,#,15,7}, denote the following structure:
+// LeetCode Version
+public class Codec {
+    private static final String spliter = ",";
+    private static final String NN = "X";
 
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        StringBuilder sb = new StringBuilder();
+        buildString(root, sb);
+        return sb.toString();
+    }
+
+    private void buildString(TreeNode node, StringBuilder sb) {
+        if (node == null) {
+            sb.append(NN).append(spliter);
+        } else {
+            sb.append(node.val).append(spliter);
+            buildString(node.left, sb);
+            buildString(node.right,sb);
+        }
+    }
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        Deque<String> nodes = new LinkedList<>();
+        nodes.addAll(Arrays.asList(data.split(spliter)));
+        return buildTree(nodes);
+    }
+
+    private TreeNode buildTree(Deque<String> nodes) {
+        String val = nodes.remove();
+        if (val.equals(NN)) return null;
+        else {
+            TreeNode node = new TreeNode(Integer.valueOf(val));
+            node.left = buildTree(nodes);
+            node.right = buildTree(nodes);
+            return node;
+        }
+    }
+}
 
 
 /**
@@ -65,6 +103,57 @@ class Solution {
         mid.right = right;
         return mid;
     }
+}
+
+// package interviewquestions.facebook;
+
+public class SerializeBinaryTree {
+    public String serializeBinaryTree(BinaryTreeNode root) {
+        if (root == null)
+            return "{}";
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        builder.append(root.val);
+        builder.append(serializeBinaryTree(root.left));
+        builder.append(serializeBinaryTree(root.right));
+        builder.append("}");
+        return builder.toString();
+    }
+    
+    public BinaryTreeNode deserizlizeBinaryTree(String str) {
+        if (str == null || str.length() == 0)
+            return null;
+        int endOfVal = getEndOfVal(str);
+        if (endOfVal == 1)
+            return null;
+        BinaryTreeNode root = new BinaryTreeNode(Integer.parseInt(str.substring(1, endOfVal)));
+        int endOfLeftSub = getEndOfSub(str, endOfVal + 2);
+        root.left = deserizlizeBinaryTree(str.substring(endOfVal + 2, endOfLeftSub));
+        root.right = deserizlizeBinaryTree(str.substring(endOfLeftSub + 2, str.length() - 1));
+        return root;
+    }
+    
+    private int getEndOfVal(String str) {
+        int endIndex = 1;
+        while (endIndex < str.length() && str.charAt(endIndex) != '{')
+            endIndex ++;
+        return endIndex;
+    }
+    
+    private int getEndOfSub(String str, int start) {
+        int end = start + 1;
+        int leftBracket = 1;
+        while (leftBracket != 0) {
+            if (str.charAt(end) == '{')
+                leftBracket ++;
+            else if (str.charAt(end) == '}')
+                leftBracket --;
+            end++;
+        }
+        return end;
+    }
+    
+
 }
 
 // Another

@@ -11,10 +11,12 @@
 		return array;
 	}*/
 
+(int)(Math.random() * ((upperbound - lowerbound) + 1) + lowerbound);
+
 public void shuffle(int[] A) {
     if (A == null || A.length == 0) return;
     for (int i = 0; i < A.length-1; ++i) {
-        int random = Math.random()*(A.length-i) + i;
+        int random = (int)Math.random()*(A.length-i) + i;
         int temp = A[i];
         A[i] = A[random];
         A[random] = temp;

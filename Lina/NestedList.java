@@ -81,6 +81,10 @@ public int depthSum (List<NestedInteger> input, int weight)
 
 
 Nest List2: 求Reverse sum
+先算出高度，做法就跟楼主的一样了。
+用queue的话，把每层的nestedinteger全放到arraylist里，然后这个arraylist放queue里。 
+然后通过queue的size知道高度。。。
+
 
 先求depth：
 private int depth(List<NestedInteger> input){
@@ -96,6 +100,21 @@ private int depth(List<NestedInteger> input){
 }
 
 再求Weight sum
+
+    int noWeiSum = 0;
+    int height = 0;  
+private int getSum(List<NestedInteger> input, int level) {  
+    int weiSum = 0;
+    for(int i = 0 ; i < input.size(); i++) {  
+        if(input.get(i).isInteger())   
+            weiSum += level * input.get(i).getInteger();
+        	noWeiSum += input.get(i).getInteger();
+        	height = max(height, level);
+        else   
+            weiSum += getSum(input.get(i).getList(), level + 1); 
+    }  
+    return sum;  
+}  
 
 Nest List3: Iterator
 /*就是说你要实现一个Iterator，每次调用next都返回nested array中的下一个，所谓下一个就是比如，

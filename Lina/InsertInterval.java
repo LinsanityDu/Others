@@ -72,6 +72,85 @@ public class IntervalsImp implements Intervals {
 }
 
 
+// Another Solution
+public interface Intervals {
+
+    /**
+     * Adds an interval [from, to] into internal structure.
+     */
+    void addInterval(int from, int to);
+
+
+    /**
+     * Returns a total length covered by intervals.
+     * If several intervals intersect, intersection should be counted only once.
+     * Example:
+     *
+     * addInterval(3, 6)
+     * addInterval(8, 9)
+     * addInterval(1, 5)
+     *
+     * getTotalCoveredLength() -> 6
+     * i.e. [1,5] and [3,6] intersect and give a total covered interval [1,6]
+     * [1,6] and [8,9] don't intersect so total covered length is a sum for both intervals, that is 6.
+     *
+     *                   _________
+     *                                               ___
+     *     ____________
+     *
+     * 0  1    2    3    4    5   6   7    8    9    10
+     *
+     */
+    int getTotalCoveredLength();
+}
+解答
+
+public class MyIntervals implements Intervals {
+    List<Length> l = new LinkedList<Length>();
+    @Override
+    public void addInterval(int from, int to) {
+        l.add(new Length(x,y));
+    }
+
+    @Override
+    public int getTotalCoveredLength {
+        Collections.sort(l);
+        int retLength = 0;
+        Length lastone = new Length(0,0);
+        for(Length len : l) {
+            if(len.x > lastLen.y) {//locate apart
+                totalLen += len.y - len.x;
+                lastLen = len;
+            } else if(len.y >lastlen.y) { //overlapping
+                totalLen += len.y-lastLen.y;
+                lastLen = len;
+            }
+            //注意这里不需要考虑如果后一个在前一个里面会怎么样，因为lastLen会维持一样，写一次仍然跟前一个做比较
+        }
+        return totalLen;
+    }
+
+}
+
+public class Length implements Comparable<Length> {
+    public int x, y;
+    public Length(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+    @Override
+    public compareTo(Length o) {
+        if(o.x-this.x == 0) {
+            return 0;
+        }
+        if(o.x-this.x > 0) {
+            return -1;
+        }
+        if(o.x-this.x < 0) {
+            return 1;
+        }
+    }
+}
 
 
 

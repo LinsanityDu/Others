@@ -115,6 +115,45 @@ public List<List<Integer>> permute(int[] num) {
 
 
 // Solution Based on swap
+
+/**
+Solution 2
+Using a swap function. every level you swap the current index with one of the element on you right you increment current index by one.
+**/
+public List<List<Integer>> permute(int[] num) {
+    List<List<Integer>> ans = new ArrayList<List<Integer>>();
+    if (num == null || num.length == 0) {
+      return ans;
+    }
+    permute(num, 0, ans);
+    return ans;
+}
+
+//helper function
+private void permute(int[] num, int index, List<List<Integer>> ans) {
+    if (index == num.length) {
+      List<Integer> one = new ArrayList<Integer>();
+      for (int i : num) {
+        one.add(i);
+      }
+      ans.add(one);
+    } else {
+      for (int i = index; i < num.length; ++i) {
+        swap(num, index, i);
+        permute(num, index+1, ans);
+        swap(num, index, i); //swap it back
+      }
+    }
+}
+
+private void swap(int[] num, int i, int j) {
+    int temp = num[i];
+    num[i] = num[j];
+    num[j] = temp;
+}
+
+
+// C++
 class Solution {
 public:
     vector<vector<int> > permute(vector<int> &num) {

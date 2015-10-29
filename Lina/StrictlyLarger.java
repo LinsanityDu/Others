@@ -14,6 +14,32 @@
 */
 Binary Search
 
+  public static char findNextChar(char[] list, char c) {
+	  int start = 0, end = list.length - 1;
+	  char result = list[0];
+	  while (start + 1 < end) {
+	    int mid = start + (end - start) / 2;
+	    if (list[mid] == c) {
+	      if (mid < list.length - 1) return list[mid + 1];
+	      else return result;
+	    } else if (list[mid] < c) {
+	      start = mid;
+	    } else {
+	      end = mid;
+	    }
+	  }
+        if (c <= list[start]) {
+      return list[start];
+    } else if (c < list[end]) {
+      return list[end];
+    } else {
+      if (end < list.length - 1)
+      return list[end + 1];
+    }
+        return result;
+
+}
+
 public static char findNextChar(char[] list, char c) {
 		assert list.length > 0;
 		int left = 0, right = list.length - 1;

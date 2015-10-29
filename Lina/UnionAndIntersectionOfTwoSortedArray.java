@@ -19,3 +19,54 @@ For Intersection of two arrays, print the element only if the element is present
 2) If arr1[i] is smaller than arr2[j] then increment i.
 3) If arr1[i] is greater than arr2[j] then increment j.
 4) If both are same then print any of them and increment both i and j.
+
+// Union
+public class Solution {
+	public static void union(int[] array1, int[] array2) {
+		int index1 = 0;
+		int index2 = 0;
+		while (index1 < array1.length && index2 < array2.length) {
+			if (array1[index1] < array2[index2]) {
+				print(array1[index1]);
+				index1++;
+			} else if (array1[index1] > array2[index2]) {
+				print(array2[index2]);
+				index2++;
+			} else {
+				print(array1[index1]);
+				index1++;
+				index2++;
+			}
+		}
+		if (index1 < array1.length) {
+			while (index1 < array1.length) {
+				print(array1[index1++]);
+			}
+		}
+		if (index2 < array2.length) {
+			while (index2 < array2.length) {
+				print(array2[index2++]);
+			}
+		}
+		return;
+	}
+}
+
+
+// Intersection
+	public static void intersection(int[] array1, int[] array2) {
+		int index1 = 0;
+		int index2 = 0;
+		while (index1 < array1.length && index2 < array2.length) {
+			if (array1[index1] < array2[index2]) {
+				index1++;
+			} else if (array1[index1] > array2[index2]) {
+				index2++;
+			} else {
+				System.out.println(array1[index1]);
+				index1++;
+				index2++;
+			}
+		}
+		return;
+	}

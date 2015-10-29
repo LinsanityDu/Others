@@ -63,7 +63,51 @@ public class Solution {
 }
 
 
-
+// Code Ganker
+public class Solution {
+    public int ladderLength(String start, String end, Set<String> dict) {
+        //edge case
+        if(start == null || end == null || start.length() == 0 || end.length()== 0 || dict.size() == 0) {
+            return 0;
+        }
+        int ladder = 2;
+        LinkedList<String> queue = new LinkedList<String>();
+        HashSet<String> visited = new HashSet<String>();
+        //这里要注意，只要加入queue的就必须放入visited
+        queue.offer(start);
+        visited.add(start);
+        //这个纪录level的方法不错。我之前是用null加到queue里面表示一个level，现在可以直接count每层的数量。每visited一次lastNum--，每add一个cur++， 然后当lastNum==0时，表示一层。curNum传给lastNum然后重新变为0
+        int lastNum = 1;  
+        int curNum = 0;  
+        while(queue.size() != 0) {
+            String cur = queue.poll();
+            lastNum--;
+            for(int l = 0 ; l < cur.length(); l++) {
+                char[] curArray = cur.toCharArray();
+                for(char c = 'a'; c <= 'z'; c++) {
+                    //原来在想这里不需要看会不会与自己（cur）是同一个string吗，其实不怕，因为这个case只会visited一次
+                    curArray[l] = c;
+                    String curT = new String(curArray);
+                    if(curT.equals(end)){
+                        return ladder;
+                    } else {
+                      if(dict.contains(curT) && !visited.contains(curT)) {
+                          curNum++;
+                          queue.offer(curT);
+                          visited.add(curT);
+                      }  
+                    }
+                }
+            }
+            if(lastNum==0) {  
+                lastNum = curNum;  
+                curNum = 0;  
+                ladder++;  
+            } 
+        }
+        return 0;
+    }
+}
 
 
 
@@ -128,3 +172,5 @@ public class Solution {
         return nextWords;
     }
 }
+
+
