@@ -1,3 +1,34 @@
+public class Solution {
+    public static int[] merge(int[] A, int[] B) {
+        if (A == null && B == null || A.length == 0 && B.length == 0) {
+            return null;
+        }
+        if (A == null || A.length == 0) return B;
+        if (B == null || B.length == 0) return A;
+        int[] res = new int[A.length + B.length];
+        int i = A.length - 1;
+        int j = B.length - 1;
+        int index = A.length + B.length - 1;
+        while (i >= 0 && j >= 0) {
+            if (A[i] > B[j]) {
+                res[index--] = A[i--];
+            } else {
+                res[index--] = B[j--];
+            }
+        }
+        while (i >= 0) {
+            res[index--] = A[i--];
+        }
+        while (j >= 0) {
+            res[index--] = B[j--];
+        }
+        return res;
+    }
+    
+}
+
+
+
 /*Given two sorted integer arrays nums1 and nums2, merge nums2 into nums1 as one sorted array.
 
 Note:

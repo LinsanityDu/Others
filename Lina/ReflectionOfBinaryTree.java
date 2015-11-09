@@ -22,6 +22,7 @@ to
 9   6 3   1
 Trivia:
 This problem was inspired by this original tweet by Max Howell:
+
 public boolean isSysmetric(TreeNode r1, TreeNode r2) {  
     if(r1 == null && r2 == null) return true;  
     if(r1 == null || r2 == null) return false;  
