@@ -61,6 +61,31 @@ throw new CloneNotSupportedException();
 
 The below program shows the final Implementation of Singleton Design Pattern in java, by using all the 4 steps mentioned above.*/
 
+8.Lazy Initiliation
+In computer programming, lazy initialization is the tactic of delaying the creation of an object, the calculation of a value, or some other expensive process until the first time it is needed.
+Lazy Initialization is a way of improving performance of application. In lazy initialization objects are not initialized until they are needed. This saves the cost of creating objects and wasting memory until they are actually needed. Proxy Objects in Hibernate are good example of lazy initialization. Let’s see lazy initialization when there is no multi-threading.
+To prevent this we can use synchronized keyword at the method level but creating “synchronized methods” are bad for performance, it cost more. So next thought comes to put synchronized block inside the function. Now code look like below
+class SomeClass {
+  private Resource resource = null;
+  public Resource getResource() {
+    if (resource == null) {
+      synchronized(SomeClass.class){
+        if (resource == null)
+          resource = new Resource();
+      }
+    }
+    return resource;
+  }
+}
+Above code seems certainly better. It synchronizes “resource” so at a time only one thread can enter and initialize the resource. This implementation is called “Double checking lock” or DCL. But this is also having one issue with Java Memory Model. That is partially initialized objects can be returned
+
+/*9. Votailie
+Essentially, volatile is used to indicate that a variable's value will be modified by different threads.
+Declaring a volatile Java variable means:
+The value of this variable will never be cached thread-locally: all reads and writes will go straight to "main memory";
+Access to the variable acts as though it is enclosed in a synchronized block, synchronized on itself.
+Using volatile may be faster than a lock, but it will not work in some situations*/
+
 class SingletonClass {
 
 	private static SingletonClass singletonObject;

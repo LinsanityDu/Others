@@ -1,3 +1,7 @@
+这样也不行，这样minheap弹出当前最小值以后无法判断它是从哪个iterator出来的，然后就不知道该把哪个iterator的next放入minheap了。我把next值和对应的iterator放在一个class里了，不知道这样可以么
+写comparator的时候如果直接用a.next()的话总感觉好像有点问题，就像stack.pop()了一样，我也不太熟悉iterator的操作，还得大神们来指导啊
+
+
 public Iterable<Integer> mergeKSortedIterators(Iterator<Integer>[] iters){
         Queue<IntIter> minHeap = new PriorityQueue<IntIter>(iters.length, new iteratorComp());
         List<Integer> result = new ArrayList<Integer>();
