@@ -61,6 +61,37 @@ public int longestPalindromeSubsequence(int[] nums) {
 
 }
 
+// 地里面经
+Find the size of longest palindrome subset of an array
+感觉就是leetcode Palindrome Partitioning的变形啊public static int longestPalindrome(int[] nums) {
+                if (nums == null || nums.length == 0) {
+                        return 0;
+                }
+                int[][] dp = new int[nums.length][nums.length];
+                for (int i = 0; i < nums.length; i++) {
+                        dp[i][i] = 1;
+                }
+                for (int len = 2; len <= nums.length; len++) {. from: 1point3acres.com/bbs 
+                        for (int i = 0; i <= nums.length - len; i++) {
+                                if (nums[i] == nums[i + len - 1]) {
+                                        if (i + 1 <= i + len - 2) {
+                                                dp[i][i + len - 1] = dp[i + 1][i + len - 2] + 2;
+                                        } else {
+                                                dp[i][i + len - 1] = 2;
+                                        }
+                                } else {
+                                        if (i + 1 <= i + len - 2) {
+                                                dp[i][i + len - 1] = Math.max(dp[i][i + len -2], dp[i + 1][i + len - 1]);. 鐣欏鐢宠璁哄潧-涓€浜╀笁鍒嗗湴
+                                        } else { 鏉ユ簮涓€浜�.涓夊垎鍦拌鍧�. 
+                                                dp[i][i + len - 1] = 1;
+                                        }
+                                }
+                        }
+                }
+                return dp[0][nums.length - 1];
+        }. 鐣欏鐢宠
+
+
 
 
 public static void main(String[] args) {
@@ -92,7 +123,6 @@ public static void main(String[] args) {
   }
 
 
-  
 int max (int x, int y) { return (x > y)? x : y; }
  
 // Returns the length of the longest palindromic subsequence in seq

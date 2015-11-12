@@ -18,6 +18,17 @@ The linked lists must retain their original structure after the function returns
 You may assume there are no cycles anywhere in the entire linked structure.
 Your code should preferably run in O(n) time and use only O(1) memory.*/
 
+然后来了个linked list找intersection~本来窃以为不要太简单~没想到他居然无数个follow-up~汗~~
+分情况讨论：
+两个没有环，不想交
+两个没有环，相交
+两个有环，不想交
+两个有环，相交
+
+
+在第三种情况纠结了很久，然后决定上slow, fast pointer找到两个环的起点，然后固定一个起点，另外一个环走一圈看有没有重复
+之后又扯淡了很久~
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -110,3 +121,52 @@ public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
         }
         return curA;
     }
+
+
+
+
+
+public class Solution {
+    /**
+     * @param headA: the first list
+     * @param headB: the second list
+     * @return: a ListNode 
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        if (headA == null || headB == null) {
+            return null;
+        }
+        
+        // get the tail of list A.
+        ListNode node = headA;
+        while (node.next != null) {
+            node = node.next;
+        }
+        
+        node.next = headB;
+        
+        return listCycleII(headA);
+    }
+    
+    private ListNode listCycleII(ListNode head) {
+        ListNode slow = head, fast = head.next;
+        
+        while (slow != fast) {
+            if (fast == null || fast.next == null) {
+                return null;
+            }
+            
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        
+        slow = head;
+        fast = fast.next;
+        while (slow != fast) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        
+        return slow;
+    }
+}

@@ -20,7 +20,7 @@ public class TextFile implements Iterable<String>{
         
         public TextFile(String fileName) throws FileNotFoundException {
                 br = new BufferedReader(new FileReader(fileName));
-                scanner = new Scanner(new FileReader(fileName));
+                //scanner = new Scanner(new FileReader(fileName));
                 
         }
 
