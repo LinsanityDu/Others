@@ -8,48 +8,7 @@ You are given a target value to search. If found in the array return its index, 
 You may assume no duplicate exists in the array.
 */
 
-
-// Float Value??
-
-public class Solution {
-    public int search(int[] nums, int target) {
-        if (nums == null || nums.length == 0) {
-        	return -1;
-        }
-        int start = 0;
-        int end =  nums.length - 1;
-        int mid = start + (end - start) / 2;
-        while (start + 1 < end) {
-        	mid = start + (end - start) / 2;
-        	if (nums[mid] == target) {
-                return mid;
-            } 
-            if (nums[start] > nums[mid]) {
-                if (nums[mid] <= target && target <= nums[end]) {
-                    start = mid;
-                } else {
-                    end = mid;
-                }
-            } else {
-                if (nums[start] <= target && target <= nums[mid]) {
-                    end = mid;
-                } else {
-                    start = mid;
-                }
-            }
-        }
-        if (nums[start] == target) {
-        	return start;
-        }
-        if (nums[end] == target) {
-        	return end;
-        }
-        return -1;
-    }
-}
-
-
-//
+// NineChapter
 public class Solution {
     public int search(int[] A, int target) {
         if (A == null || A.length == 0) {
@@ -91,3 +50,45 @@ public class Solution {
         return -1;
     }
 }
+
+
+// Float Value??
+
+public class Solution {
+    public int search(int[] nums, int target) {
+        if (nums == null || nums.length == 0) {
+        	return -1;
+        }
+        int start = 0;
+        int end =  nums.length - 1;
+        int mid = start + (end - start) / 2;
+        while (start + 1 < end) {
+        	mid = start + (end - start) / 2;
+        	if (nums[mid] == target) {
+                return mid;
+            } 
+            if (nums[start] > nums[mid]) {
+                if (nums[mid] <= target && target <= nums[end]) {
+                    start = mid;
+                } else {
+                    end = mid;
+                }
+            } else {
+                if (nums[start] <= target && target <= nums[mid]) {
+                    end = mid;
+                } else {
+                    start = mid;
+                }
+            }
+        }
+        if (nums[start] == target) {
+        	return start;
+        }
+        if (nums[end] == target) {
+        	return end;
+        }
+        return -1;
+    }
+}
+
+

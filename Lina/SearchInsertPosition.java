@@ -9,6 +9,36 @@ Here are few examples.
 [1,3,5,6], 7 → 4
 [1,3,5,6], 0 → 0
 */
+// Nine Chapter
+public class Solution {
+    public int searchInsert(int[] A, int target) {
+        if (A == null || A.length == 0) {
+            return 0;
+        }
+        int start = 0, end = A.length - 1;
+        
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (A[mid] == target) {
+                return mid;
+            } else if (A[mid] < target) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        
+        if (A[start] >= target) {
+            return start;
+        } else if (A[end] >= target) {
+            return end;
+        } else {
+            return end + 1;
+        }
+    }
+}
+
+
 
 public class Solution {
     public int searchInsert(int[] nums, int target) {
@@ -46,31 +76,4 @@ public class Solution {
 }
 
 
-// Nine Chapter
-public class Solution {
-    public int searchInsert(int[] A, int target) {
-        if (A == null || A.length == 0) {
-            return 0;
-        }
-        int start = 0, end = A.length - 1;
-        
-        while (start + 1 < end) {
-            int mid = start + (end - start) / 2;
-            if (A[mid] == target) {
-                return mid;
-            } else if (A[mid] < target) {
-                start = mid;
-            } else {
-                end = mid;
-            }
-        }
-        
-        if (A[start] >= target) {
-            return start;
-        } else if (A[end] >= target) {
-            return end;
-        } else {
-            return end + 1;
-        }
-    }
-}
+
