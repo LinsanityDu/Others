@@ -28,7 +28,7 @@ Binary Search
 	      end = mid;
 	    }
 	  }
-        if (c <= list[start]) {
+    if (c <= list[start]) {
       return list[start];
     } else if (c < list[end]) {
       return list[end];
@@ -36,7 +36,7 @@ Binary Search
       if (end < list.length - 1)
       return list[end + 1];
     }
-        return result;
+    return result;
 
 }
 
