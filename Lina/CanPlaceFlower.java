@@ -36,6 +36,7 @@ public boolean canPlaceFlowers(List<Boolean> flowerbed, int numberToPlace) {
 	}
 	return numberToPlace == 0;
 }
+
 public boolean canPlaceFlowers(List<Boolean> flowerbed, int numberToPlace) { 
 
 	// Implementation here 

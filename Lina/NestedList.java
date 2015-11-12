@@ -99,6 +99,32 @@ private int depth(List<NestedInteger> input){
     return d + 1;
 }
 
+
+public int getSum(List<NestedInteger> input) {
+	int dep = depth(input);
+	return depthSum(input, dep);
+}
+public int depthSum (List<NestedInteger> input, int weight) 
+{ 
+	if (input == null) {
+		return 0;
+	}
+	
+	int sum = 0;
+	for (NestedInteger elem : input)
+	{
+		if (elem.isInteger()) {
+			sum += weight * elem.getInteger();
+		} else {
+			sum += depthSum(elem.getList(), weight - 1);
+		}
+	}
+	
+	return sum;
+}
+
+
+
 再求Weight sum
 
     int noWeiSum = 0;

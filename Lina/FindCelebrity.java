@@ -32,6 +32,9 @@ int getInfluencer(boolean[][] followingMatrix) {
     return candidate;
 }
 
+
+
+
 You are given a helper function bool knows(a, b) which tells you whether A knows B. Implement a function int findCelebrity(n), your function should minimize the number of calls to knows.
 
 public class Solution extends Relation {

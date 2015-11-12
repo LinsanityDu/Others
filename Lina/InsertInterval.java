@@ -97,6 +97,102 @@ public class Length implements Comparable<Length> {
 }
 
 
+public class IntervalsClass : Intervals
+{
+    private Node head;
+    private int totalLength;
+
+    public IntervalClass
+    {
+        this.head = null;
+        this.totalLength =0;
+    }
+    public void addInterval(int from, int to) {
+      if (from >= to) return;
+      Node input = new Node(from, to);
+
+      // When there is no head
+      if (head == null)
+      {
+          this.head = input;
+          this.totalLength = input.to - input.from;
+          return; 
+      }
+
+      // Go through each node
+      Node current = this.head, prev = null;
+      while (current != null)
+      {
+          // Insert new interval before current
+          if (input.to < current.from)
+          {
+              input.next = current;
+              if (prev == null)
+              {
+                  this.head = input;
+              }
+              else
+              {
+                  prev.next = input;
+              }
+              this.totalLength += input.to - input.from;
+              return;
+          }
+          // Move to the next node
+          else if (input.from > current.to)
+          {
+              prev = current;
+              current = current.next;
+          }
+          else
+          // Merge overlapping nodes
+          {   
+              if (prev == null)
+              {
+                  this.head = current.next;
+              }
+              else
+              {
+                  prev.next = current.next;
+              }
+
+              this.totalLength -= current.to - current.from;
+              input.to = Math.Max(input.to, current.to);
+              input.from = Math.Min(input.from, current.from);
+              current = current.next;
+          }                   
+      }
+      // End of list
+      if (prev == null)
+      {
+          this.head = input;
+      }
+      else
+      {
+          prev.next = input;
+      }
+      this.totalLength += input.to - input.from;      
+    }
+
+    public int getTotalCoveredLength() {
+        return this.totalLength;
+    }
+}
+
+public class Node
+{
+    public int from;
+    public int to;
+    public Node next;
+
+    public Node(int from, int to)
+    {
+        this.from = from;
+        this.to = to;
+        this.next = null;
+    }
+}
+
 public interface Intervals {
     /**
      * Adds an interval [from, to] into internal structure.

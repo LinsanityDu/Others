@@ -51,7 +51,11 @@ public class Solution {
         System.out.println(secMin(root));
     }
 }
-a O(logn) solution.        
+
+
+
+
+// O(logn) solution.        
 
 public int getSecondMin(TreeNode root) {
          if (root == null || root.left == null) return Integer.MAX_VALUE;
