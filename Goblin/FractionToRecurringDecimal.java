@@ -8,6 +8,12 @@ Given numerator = 1, denominator = 2, return "0.5".
 Given numerator = 2, denominator = 1, return "2".
 Given numerator = 2, denominator = 3, return "0.(6)".*/
 
+/*The important thing is to consider all edge cases while thinking this problem through, including: negative integer, possible overflow, etc.
+
+Use HashMap to store a remainder and its associated index while doing the division so that whenever a same remainder comes up, we know there is a repeating fractional part.
+
+Please comment if you see something wrong or can be improved. Cheers!*/
+
 public class Solution {
     public String fractionToDecimal(int numerator, int denominator) {
         if (numerator == 0) return "0";
