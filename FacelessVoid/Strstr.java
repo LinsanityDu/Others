@@ -2,6 +2,12 @@
 
 Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.*/
 
+
+// FollowUp
+- strStr->anaStrStr
+    + now you shoud find any permutations string of the needle in the haystack. i.e anaStrStr("abcd", "cb") -> true
+the best method is to write you own hash function to hash a count array, check: group anagrams and two strings are anagram problem
+
 // Nine Chapter
 class Solution {
     /**
