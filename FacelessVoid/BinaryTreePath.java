@@ -43,7 +43,7 @@ public class Solution {
 }
 
 
-// Iterative
+// Iterative BFS?
 
 public List<String> binaryTreePaths(TreeNode root) {
     Queue<TreeNode> nodes=new LinkedList<TreeNode>();
@@ -71,3 +71,45 @@ public List<String> binaryTreePaths(TreeNode root) {
     }
     return result;
 }
+
+
+第二题是completed bst，打印所有path。follow up 是如果是有向图怎么修改代码，然后如果有cyclic怎么改。然后他说用boolean标记node有没有遇到过有什么pros and cons, 我只说了pros，不知道cons，他说多个线程同时读和写的时候可能会有问题。
+
+class Soulution{
+    public void printPath(TreeNode root, ArrayList<TreeNode> list){
+        if(root == null || root.isVistied==true) return;
+        if(root.child==null){
+            list.add(root);
+            print(list);
+            list.remove(list.size()-1);
+            return;
+        }
+        list.add(root);
+        list.isVisited = true;
+        for(TreeNode e : root.child){
+            printPath(e, list);
+        }
+        //printPath(root.left, list); 鏉ユ簮涓€浜�.涓夊垎鍦拌鍧�. 
+        //printPath(root.right,list);.鐣欏璁哄潧-涓€浜�-涓夊垎鍦�
+        list.remove(list.size()-1);
+    }
+    
+    public void print(ArrayList<TreeNode> list){
+        for(TreeNode e: list){
+            System.out.print(e.val);
+        }
+        System.out.println();
+    }
+}
+
+
+
+    A
+   / \
+  B   C
+   \ /
+    D
+   / \
+  E   F
+   \ /
+    G

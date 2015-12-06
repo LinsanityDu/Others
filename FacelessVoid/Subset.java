@@ -37,3 +37,75 @@ public class Solution {
         }
     }
 }
+
+
+//method1, iterative， 只在没duplicate的情况下好用！
+public class Solution {
+    public List<List<Integer>> subsets(int[] S) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(S == null || S.length == 0){
+            return res;
+        }
+        Arrays.sort(S);
+        List<Integer> path = new ArrayList<Integer>();
+        res.add(path);
+        for(int i = 0; i < S.length; i++){
+            int size = res.size();
+            for(int j = 0; j < size; j++){
+                List<Integer> sol = new ArrayList<Integer>(res.get(j));
+                sol.add(S[i]);
+                res.add(sol);
+            }
+        }
+        return res;
+    }
+}
+
+//method2, 模板DFS， 记得sort array和加{} 到结果
+//和面试官讨论Corner case
+public class Solution {
+    public List<List<Integer>> subsets(int[] S) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        ArrayList<Integer> path = new ArrayList<Integer>();
+        res.add(path);
+        if(S == null || S.length == 0){
+            return res;
+        }
+        Arrays.sort(S);
+        dfs(res, path, S, 0);
+        return res;
+    }
+    
+    private void dfs(List<List<Integer>> res, ArrayList<Integer> path, int[] S, int pos){
+        for(int i = pos; i < S.length; i++){
+            //if(i != pos && S[i - 1] == S[i]) continue; subset2
+            path.add(S[i]);
+            res.add(new ArrayList<Integer>(path));
+            dfs(res, path, S, i + 1);
+            path.remove(path.size() - 1);
+        }
+    }
+}
+
+//bit 解法，貌似有duplicate也不好使
+public class Solution {
+    public List<List<Integer>> subsets(int[] S) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(S == null || S.length == 0){
+            return res;
+        }
+        Arrays.sort(S);
+        long total = (long)Math.pow(2, S.length);
+        for(long i = 0; i < total; i++){
+            List<Integer> sol = new ArrayList<Integer>();
+            long temp = i;
+            while(temp != 0){
+                int idx = Long.numberOfTrailingZeros(temp);
+                sol.add(S[idx]);
+                temp = temp ^ (1 << idx);
+            }
+            res.add(sol);
+        }
+        return res;
+    }
+}

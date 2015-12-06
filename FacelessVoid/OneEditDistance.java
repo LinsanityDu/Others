@@ -25,6 +25,93 @@ public class OneEditDistance {
 }
 
 
+
+// 如果给的是Iterator
+http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=121661&extra=&highlight=facebook&page=2
+import java.util.*;
+. 鍥磋鎴戜滑@1point 3 acres
+public class Solution {
+    public static boolean isOneEditDistance(Scanner a, Scanner b) {
+        boolean isSame = true, isChanged = false, isAdd = false, isRemove = false;
+        boolean addRemoveFlag = false;
+        boolean changeFlag = false;
+        int prevA = 0, prevB = 0, curA = 0, curB = 0;
+   
+        while (a.hasNext() && b.hasNext()) {
+            prevA = curA;
+            prevB = curB;
+            curA = Integer.parseInt(a.next());
+            curB = Integer.parseInt(b.next());
+            if (curA != curB) {
+            //maintain same
+                if (isSame) {
+                    isSame = false;
+                }. 鍥磋鎴戜滑@1point 3 acres
+                
+            //maintain change
+                if (!changeFlag) {
+                    changeFlag = true;
+                    isChanged = true;
+                } else {. Waral 鍗氬鏈夋洿澶氭枃绔�,
+                    isChanged = false;
+                }
+                
+            //maintain add or insert
+                if (!addRemoveFlag) {
+                    addRemoveFlag = true;
+                    isAdd = true;. from: 1point3acres.com/bbs 
+                    isRemove = true;.鐣欏璁哄潧-涓€浜�-涓夊垎鍦�
+                    continue;. 鐣欏鐢宠璁哄潧-涓€浜╀笁鍒嗗湴
+                }
+            }
+            . 涓€浜�-涓夊垎-鍦帮紝鐙鍙戝竷
+            //maintain add or insert
+            if (addRemoveFlag) {
+                isAdd = isAdd && (curA == prevB);
+                isRemove = isRemove && (curB == prevA);
+            }
+            
+            if (!(isSame || isChanged || isAdd || isRemove)) {
+                return false;
+            }
+            . 鐗涗汉浜戦泦,涓€浜╀笁鍒嗗湴
+           
+        }
+. from: 1point3acres.com/bbs         
+        if (a.hasNext()) {
+            int taila = Integer.parseInt(a.next());
+            return (isSame || (isAdd && taila == curB)) && !a.hasNext();
+        }
+        
+        if (b.hasNext()) {. 1point3acres.com/bbs
+            int tailb = Integer.parseInt(b.next());
+            return (isSame || (isRemove && tailb == curA)) && !b.hasNext();
+        }
+        
+        return isSame || isChanged;
+        
+.鐣欏璁哄潧-涓€浜�-涓夊垎鍦�
+    }.1point3acres缃�
+    . 鐗涗汉浜戦泦,涓€浜╀笁鍒嗗湴
+    
+    public static void main(String[] args) {
+      //TODO: give some testing values. 1point3acres.com/bbs
+      String s1 = "";
+      String s2 = "";
+
+      Scanner scanner1 = new Scanner(s1);
+      Scanner scanner2 = new Scanner(s2);
+     . 鐣欏鐢宠璁哄潧-涓€浜╀笁鍒嗗湴
+      System.out.println("s1="+ s1 + " ," + "s2=" + s2 + " :" + isOneEditDistance(scanner1, scanner2));-google 1point3acres
+      
+      // close the scanner
+      scanner1.close();. 鐗涗汉浜戦泦,涓€浜╀笁鍒嗗湴
+      scanner2.close();
+   }
+
+}
+
+
 // With Explanation
 /*The basic idea is we keep comparing s and t from the beginning, once there's a difference, we try to replace s(i) with t(j) or insert t(j) to s(i) and see if the rest are the same.
 

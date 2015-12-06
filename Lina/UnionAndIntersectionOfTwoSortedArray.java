@@ -1,3 +1,5 @@
+合并N个 也是用Divide and conquer
+
 For example, if the input arrays are: 
 arr1[] = {1, 3, 4, 5, 7}
 arr2[] = {2, 3, 5, 6}

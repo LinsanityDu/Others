@@ -12,7 +12,9 @@ Given n = 5 and edges = [[0, 1], [1, 2], [3, 4]], what should your return? Is th
 According to the definition of tree on Wikipedia: “a tree is an undirected graph in which any two vertices are connected by exactly one path. In other words, any connected graph without simple cycles is a tree.”
 Note: you can assume that no duplicate edges will appear in edges. Since all edges are undirected, [0, 1] is the same as [1, 0] and thus will not appear together in edges.*/
 
-
+这题有不同做法，可以用dfs判断联通和找环，也可以用并查集来做。
+并查集的理解思路相对简单一些，首先初始化一个长度为n的并查集，遍历所有edge，首先find这个edge的两个节点，如果已经有同一个祖先，则表明存在环，也就不可能是树。构建并查集之后，再扫一遍找出祖先的数量即可，超过一个就不是树。
+注意，这里是无向图，对有向图来说，需要判断所有节点的入度是否大于1。可以用一个入度的数组来保存。
 
 
 // Discussion Three Solution

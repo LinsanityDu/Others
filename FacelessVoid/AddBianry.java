@@ -37,3 +37,28 @@ public String addBinary(String a, String b) {
     }
     return res;
 }
+
+
+// Add 任意进制
+string stringAddition(string s1, string s2) {
+    if(s1.length() > s2.length()) return stringAddition(s2, s1); // s2's length is longer than s1
+    string result(s2.length() + 1, '0');
+    int i = s1.length() - 1, j = s2.length() - 1;
+    int carry = 0;
+    for(int k = result.length() - 1; k >= 0; –k) {
+        int a = i >= 0 ? s1[i–] - '0' : 0;
+        int b = j >= 0 ? s2[j–] - '0' : 0;
+        result[k] = (a + b + carry) % 10 + '0';
+        carry = (a + b + carry) / 10;
+    }
+
+    if(result[0] == '0') return result.substr(1);
+    else return result;
+}
+
+int  main() {
+    string s1 = "9", s2 = "99";
+    cout << stringAddition(s1, s2) << endl;
+
+    return 0;
+}

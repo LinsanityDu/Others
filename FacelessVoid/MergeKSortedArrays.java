@@ -1,7 +1,58 @@
+Other than exponential time complexity, a much better method is to use divide-and-conquer. Since merging two sorted lists is easy, we can recursively divide the k lists into two parts until there are no more than two lists. Then we can use a merge method similiar to the merge sort to merge the two lists together.
+
+Assume the longest list contains n elements, the time required for dividing and merging lists is T(k)=2T(k/2)+O(nk). According to the Master Theorem, the time complexity is O(nklogk). The space complexity of this algorithm is O(1).
+
+Following is my C++ implementation of the divide-conquer method.
+
+- See more at: http://www.bo-yang.net/2014/07/21/merge-k-sorted-lists/#sthash.tFCp2gZ1.dpuf
+
+
+如果要好一点的就用heap来选择头，O(L*K*log K)
+或者每次合并两个，直到全合并完，也是O(L*K*log K)
+
+Divide and Conquer
+vector mergeKVector(vector> &lists) {
+    vector result;
+    if(lists.empty()) return result;
+    return helper(lists, 0, lists.size() - 1);
+}
+
+vector helper(vector> &lists, int low, int high) {
+    if(low >= high) return lists[low];
+    int mid = low + (high - low) / 2;
+    vector left = helper(lists, low, mid);
+    vector right = helper(lists, mid + 1, high);
+    return mergeTwoVector(left, right);
+}
+
+vector mergeTwoVector(vector a, vector b) {
+    vector result(a.size() + b.size(), 0);
+    int i = 0, j = 0;
+    for(int k = 0; k < result.size(); ++k) {
+        if(i < a.size() && j < b.size()) {
+            if(a[i] < b[j]) result[k] = a[i++];
+            else result[k] = b[j++];
+        } else if(i < a.size()) {
+            result[k] = a[i++];
+        } else if(j < b.size()) {
+            result[k] = b[j++];
+        }
+    }
+    return result;
+}
+
+
 第二题也是LC但是略微神奇... 原题是Merge K Sorted Lists，但是面试官给的是Merge Sorted Arrays... 当时就傻乎乎的问了那size呢...然后还傻乎乎自言自语，最暴力的方法就是全部merge然后再sort咯，但是这样的话Sorted Array就没有意义了诶...面试官听到了就问我这样暴力解决的话时间复杂度是多少，我弱弱的回答说我知道Arrays.sort()是O(nlgn)。面试官表示嗯嗯这样太不好了，怎么改进。于是终于想起来了用Priority Queue。但是时间来不及了没有Code完，只是说了大概思路，面试官表示可以OK
 
+We can merge arrays in O(nk*Logk) time using Min Heap. Following is detailed algorithm.
 
-NLOGK
+1. Create an output array of size n*k.
+2. Create a min heap of size k and insert 1st element in all the arrays into a the heap
+3. Repeat following steps n*k times.
+     a) Get minimum element from heap (minimum is always at root) and store it in output array.
+     b) Replace heap root with next element from the array from which the element is extracted. If the array doesn’t have any more elements, then replace root with infinite. After replacing the root, heapify the tree.
+
+NKLOGK
 
 class ArrayContainer implements Comparable<ArrayContainer> {
 	int[] arr;

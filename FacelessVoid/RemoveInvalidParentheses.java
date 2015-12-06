@@ -2,6 +2,7 @@
 
 Note: The input string may contain letters other than the parentheses ( and ).
 
+
 Examples:
 "()())()" -> ["()()()", "(())()"]
 "(a)())()" -> ["(a)()()", "(a())()"]
@@ -86,6 +87,123 @@ public class Solution {
     }
 }
 
+
+// 次数
+import java.util.*;
+public class Solution{
+    
+    public String balance(String str){
+        if(str == null || str.length() == 0){
+            return str;
+        }
+        
+        Stack<Integer> stack = new Stack<Integer>();
+        for(int i = 0; i < str.length(); i++){
+            char c = str.charAt(i);
+            if(stack.isEmpty() || c == '('){
+                stack.push(i);
+            }else{
+                int idx = stack.peek();
+                if(str.charAt(idx) == '('){
+                    stack.pop();
+                }else{
+                    stack.push(i);
+                }
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        char[] chars = str.toCharArray();
+        while(!stack.isEmpty()){
+            chars[stack.pop()] = '#';
+        }
+        for(int i = 0; i < chars.length; i++){
+            if(chars[i] != '#'){
+                sb.append(chars[i]);
+            }
+        }
+        return sb.toString();
+    }
+    
+    public String balance2(String str){
+        if(str == null || str.length() == 0){
+            return str;
+        }
+        char[] content = str.toCharArray();
+        int misMatch = 0;
+        for(int i = 0; i < content.length; i++){
+            char c = content[i];
+            if(c == '('){
+                misMatch++;
+            }else if(misMatch != 0){
+                misMatch--;
+            }else{
+                content[i] = '#';
+            }
+        }
+        for(int i = content.length - 1; i >= 0 && misMatch > 0; i--){
+            if(content[i] == '('){
+                misMatch--;
+                content[i] = '#';
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for(char c : content){
+            if(c != '#'){
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+    
+    public static void main(String[] args){
+        int[] num = {2, 3, 5};
+        System.out.println(new Solution().balance(")))(((()()(())"));
+    }
+
+只要求次数
+int minimumDeleteTimes(string s) {
+    int count = 0;
+    for(char c : s) {
+        if(c == '(') count++;
+        else if(c == ')') count–;
+    }
+
+    return count > 0 ? count : -count;
+}
+
+string turnToValid(string s) {
+    stack stk; // store index of '('
+    unordered_set set; // index need to delete
+    for(int i = 0; i < s.length(); ++i) {
+        if(s[i] == '(') stk.push(i);
+        else if(s[i] == ')') {
+            if(stk.empty()) {
+                set.insert(i);
+            } else stk.pop();
+        }
+    }
+
+    while(!stk.empty()) {
+        set.insert(stk.top());
+        stk.pop();
+    }
+
+    string result;
+    for(int i = 0; i < s.length(); ++i) {
+        if(!set.count(i)) result.push_back(s[i]);
+    }
+
+    return result;
+}
+
+
+int  main() {
+    string s = "((((a3sq))()))))";
+    cout << turnToValid(s) << endl;
+
+
+    return 0;
+}
 
 // DFS
 /*DFS solution with optimizations:

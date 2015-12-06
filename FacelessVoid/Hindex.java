@@ -88,3 +88,56 @@ public class Solution {
         return len;
     }
 }
+
+
+
+1. LC， H-index， 不过换了种问法 给一个数去， 里面的数都是[0..n] 让你找出最大的一个值max, 在数组里面存在max 个>=max的数， 
+想了半天发现是H-index
+
+[ans:]
+way 1: sort the array, left tranverse, find the first arr>=len-i; 
+public class Solution {
+public int hIndex(int[] citations) {
+if(citations==null || citations.length==0) return 0; 
+Arrays.sort(citations);
+int len=citations.length; 
+
+for(int i=0; i if(citations>=len-i) return len-i; 
+}
+
+return 0; 
+}
+}
+way 2: sort the array, use binary search to find the arr>=len-i;
+public class Solution {
+public int hIndex(int[] citations) {
+if(citations==null || citations.length==0) return 0; 
+int len=citations.length; 
+
+int begin=0, end=len-1; 
+while(begin<=end){
+int mid=begin+(end-begin)/2;
+if(citations[mid] else end=mid-1; 
+}
+// if(begin==len) return 0; 
+return len-begin;
+}
+}
+way 3: bucket sort idea, 
+public class Solution {
+public int hIndex(int[] citations) {
+if(citations==null || citations.length==0) return 0; 
+int len=citations.length;
+
+int[] arr=new int[len+1];
+for(int i=0; i if(citations>=len) arr[len]++;
+else arr[citations]++;
+}
+
+for(int i=len; i>=0; i–){
+if(arr>=i) return i; 
+if(i>0) arr[i-1]+=arr;
+}
+return 0; 
+}
+}

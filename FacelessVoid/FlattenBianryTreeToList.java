@@ -40,6 +40,7 @@ This is like a preorder flatten.
     }
 
 pre-order is simple because the root always is the head of flatten list. But if flatten the tree with in-order sequence, need extra parameter to track the head and tail of each flattened sun-tree.
+
 // Inorder
 For example, below binary tree.
 or the in-order solution, I think you can mimic the preorder solution as well. Here is my java code：
