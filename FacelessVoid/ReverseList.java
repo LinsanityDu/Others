@@ -81,11 +81,11 @@ public ListNode helper(ListNode head){
 
 	ListNode right=helper(head.next);
 	if(!meet){
-	int tmp=left.val; 
-	left.val=right.val;
-	right.val=tmp; 
-	if(left==right || left.next==right) meet=true;
-	left=left.next;
+		int tmp=left.val; 
+		left.val=right.val;
+		right.val=tmp; 
+		if(left==right || left.next==right) meet=true;
+		left=left.next;
 	}
 	return head; 
 	}

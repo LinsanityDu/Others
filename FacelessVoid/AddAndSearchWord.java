@@ -16,7 +16,7 @@ search("b..") -> true
 Note:
 You may assume that all words are consist of lowercase letters a-z.*/
 
-
+insert and search costs O(key_length), however the memory requirements of trie is O(ALPHABET_SIZE * key_length * N) where N is number of keys in trie. There are efficient representation of trie nodes (e.g. compressed trie, ternary search tree, etc.) to minimize memory requirements of trie.
 
 // Discuss with Array Solution
 public class WordDictionary {
@@ -52,6 +52,53 @@ public class WordDictionary {
                     if (match(chs, k + 1, node.children[i])) {
                         return true;
                     }
+                }
+            }
+        }
+        return false;
+    }
+}
+
+// Another Discussion With Array
+public class WordDictionary {
+    class TrieNode {
+        TrieNode[] children;
+        boolean isEndOfWord;
+        public TrieNode() {
+            this.children = new TrieNode[26];
+            this.isEndOfWord = false;
+        }
+    }
+
+    TrieNode root = new TrieNode();
+
+    // Adds a word into the data structure.
+    public void addWord(String word) {
+        TrieNode runner = root;
+        for (char c : word.toCharArray()) {
+            if (runner.children[c - 'a'] == null) {
+                runner.children[c - 'a'] = new TrieNode();
+            }
+            runner = runner.children[c - 'a'];
+        }
+        runner.isEndOfWord = true;
+    }
+
+    // Returns if the word is in the data structure. A word could
+    // contain the dot character '.' to represent any one letter.
+    public boolean search(String word) {
+        return match(word.toCharArray(), 0, root);
+    }
+
+    public boolean match(char[] word, int k, TrieNode node) {
+        if (k == word.length) return node.isEndOfWord;
+        if (word[k] != '.') {
+            return node.children[word[k] - 'a'] != null && match(word, k+1, node.children[word[k] - 'a']);
+        }
+        else {
+            for (int i = 0; i < node.children.length; i++) {
+                if (node.children[i] != null) {
+                    if (match(word, k+1, node.children[i])) return true;
                 }
             }
         }

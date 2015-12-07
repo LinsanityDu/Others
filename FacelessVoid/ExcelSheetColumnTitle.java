@@ -10,21 +10,6 @@ For example:
     27 -> AA
     28 -> AB */
 
-
-public class Solution {
-    public String convertToTitle(int n) {
-        if (n <= 0) return "";
-        StringBuilder res = new StringBuilder();
-        while ((n - 1) / 26 > 0) {
-            int temp = (n - 1) % 26;
-            res.insert(0, (char)('A' + temp));
-            n = (n - 1) / 26;
-        }
-        res.insert(0, (char)('A' + (n - 1)));
-        return res.toString();
-    }
-}
-
 // Discussion
 public class Solution {
     public String convertToTitle(int n) {
@@ -37,6 +22,21 @@ public class Solution {
         }
 
         return result.toString();
+    }
+}
+
+
+public class Solution {
+    public String convertToTitle(int n) {
+        if (n <= 0) return "";
+        StringBuilder res = new StringBuilder();
+        while ((n - 1) / 26 > 0) {
+            int temp = (n - 1) % 26;
+            res.insert(0, (char)('A' + temp));
+            n = (n - 1) / 26;
+        }
+        res.insert(0, (char)('A' + (n - 1)));
+        return res.toString();
     }
 }
 

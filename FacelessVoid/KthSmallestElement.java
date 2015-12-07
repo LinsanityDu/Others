@@ -1,3 +1,16 @@
+In quicksort, there is a subprocedure called partition that can, in linear time, group a list (ranging from indices left to right) into two parts, those less than a certain element, and those greater than or equal to the element. Here is pseudocode that performs a partition about the element list[pivotIndex]:
+
+ function partition(list, left, right, pivotIndex)
+     pivotValue := list[pivotIndex]
+     swap list[pivotIndex] and list[right]  // Move pivot to end
+     storeIndex := left
+     for i from left to right-1
+         if list[i] < pivotValue
+             swap list[storeIndex] and list[i]
+             increment storeIndex
+     swap list[right] and list[storeIndex]  // Move pivot to its final place
+     return storeIndex
+
 /*Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
 For example,
@@ -78,7 +91,22 @@ public class Solution {
         }
     }
 
+Java PriorityQueue O(n * log k)
 
+public class Solution {
+            public int findKthLargest(int[] nums, int k) {
+                PriorityQueue<Integer> largeK = new PriorityQueue<Integer>(k + 1);
+
+                for(int el : nums) {
+                    largeK.add(el);
+                    if (largeK.size() > k) {
+                        largeK.poll();
+                    }
+                }
+
+                return largeK.poll();
+            }
+}
 
 
 // My suck code

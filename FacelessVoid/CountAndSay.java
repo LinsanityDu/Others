@@ -8,6 +8,9 @@ Given an integer n, generate the nth sequence.
 
 Note: The sequence of integers will be represented as a string.*/
 
+If you calculate all the string from 1 to n, the total loop num is 1 + 2 + 3 + ... + n = n(n+1)/2 
+So, O(n^2)
+
 public class Solution {
     public String countAndSay(int n) {
         String oldString = "1";

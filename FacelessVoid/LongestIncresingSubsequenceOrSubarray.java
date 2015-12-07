@@ -82,6 +82,23 @@ Our strategy determined by the following conditions,
 
 3. If A[i] is in between, we will find a list with largest end element that is smaller than A[i]. Clone and extend this list by A[i]. We will discard all other lists of same length as that of this modified list.
 
+
+public class Solution {
+    public int lengthOfLIS(int[] nums) {            
+        int[] dp = new int[nums.length];
+        int len = 0;
+
+        for(int x : nums) {
+            int i = Arrays.binarySearch(dp, 0, len, x);
+            if(i < 0) i = -(i + 1);
+            dp[i] = x;
+            if(i == len) len++;
+        }
+
+        return len;
+    }
+}
+
 class LIS
 {
     // Binary search (note boundaries in the caller)

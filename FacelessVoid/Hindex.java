@@ -108,6 +108,7 @@ for(int i=0; i if(citations>=len-i) return len-i;
 return 0; 
 }
 }
+
 way 2: sort the array, use binary search to find the arr>=len-i;
 public class Solution {
 public int hIndex(int[] citations) {

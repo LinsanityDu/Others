@@ -13,6 +13,16 @@ Given board =
 word = "ABCCED", -> returns true,
 word = "SEE", -> returns true,
 word = "ABCB", -> returns false.*/
+这个题目基本上就是DFS喽。然后注意一下递归回溯的问题。我们可以建设一个boolean的数组来记录访问过的值。在return false之前，我们应该把之前置
+
+过的标记位置回来. 时间复杂度： http://www1.mitbbs.ca/article_t1/JobHunting/32524193_32524299_2.html
+
+time 复杂度是m*n*4^(k-1). 也就是m*n*4^k.
+m X n is board size, k is word size.
+
+recuision最深是k层，recursive部分空间复杂度应该是O(k) + O(m*n)(visit array)
+与解1是一样的，但我们可以省掉O(m*n)的空间复杂度。具体的作法是：在进入DFS后，把访问过的节点置为'#'，访问完毕之后再置回来即可。
+
 
 // Nine Chapter
 public class Solution {

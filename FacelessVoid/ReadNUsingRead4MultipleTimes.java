@@ -6,11 +6,14 @@ By using the read4 API, implement the function int read(char *buf, int n) that r
 
 Note:
 The read function may be called multiple times.*
-/
+/*/
 
+/*又是比较难理解题意的一题...call multiple times，举个例子呀， 没例子咋理解。尝试了好几次才弄明白意思。给定read4，跟上一题一样，求可以call multiple times的read()。假如文件字符串是"abc"，我们调用read(1)，应该返回"a"，再调用read(2)，应该返回bc"。这里要注意的是，之前我们再第一次调用的时候，read4就已经读取了"abc"，所以这道题其实就是要在上一题的基础上处理这种情况。解决方法不难，我们可以用一个queue来存储多读取的部分，然后在下次调用read的时候，根据情况判断，先读queue里面上次读剩下的数据，再进行下面的读取。也可以把read4的buffer放在global，然后用一个int型的offset来记录上次读了read4的多少。由于这个global buffer不会超过4，所以space complexity算是O(1)的。 LeetCode有些题真的很难读懂题意，我笨怪我咯，你聪明你先上。
+
+Time Complexity - O(n)， Space Complexity - O(1)。*/
 
 /* The read4 API is defined in the parent class Reader4.
-      int read4(char[] buf); */
+      int read4(char[] buf); 
 
 
 /*I used buffer pointer (buffPtr) and buffer Counter (buffCnt) to store the data received in previous calls. In the while loop, if buffPtr reaches current buffCnt, it will be set as zero to be ready to read new data.*/

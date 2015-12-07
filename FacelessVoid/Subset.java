@@ -16,6 +16,9 @@ If nums = [1,2,3], a solution is:
   [1,2],
   []
 ]*/
+The mathematical definition of a set ensures the uniqueness of its elements. For a set of cardinality n, the number of its subsets is 2^n. A DFS will traverse every one of them. During each recursion, you can either choose this element or not, resulting in two recursive path.
+
+　　Time complexity is O(2^n), where n is the cardinality of the set. Space complexity is O(n).
 
 public class Solution {
     public List<List<Integer>> subsets(int[] nums) {

@@ -8,6 +8,7 @@ Input:Digit string "23"
 Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
 Note:
 Although the above answer is in lexicographical order, your answer could be in any order you want.*/
+这道题目和求组合的思路差不多，比较简单。依次读取数字，然后把数字可以代表的字符依次加到当前的所有结果中，然后进入下一次迭代。假设总共有n个digit，每个digit可以代表k个字符，那么时间复杂度是O(k^n)，就是结果的数量，空间复杂度也是一样。代码如下： 代码如下： 
 
 // NineChapter
 public class Solution {
@@ -71,5 +72,76 @@ public class Solution {
             }
         }
         return ans;
+    }
+}
+
+// Another BFS
+public List<String> letterCombinationsBFS(String digits) {
+    List<String> res = new LinkedList<String>();
+    if (null == digits || digits.length() == 0) {
+        return res;
+    }
+    res.add("");
+    String[] keyboards = new String[]{" ", "", "abc", "def",
+            "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    for (int i = 0; i < digits.length(); i++) {
+        String keyboard = keyboards[digits.charAt(i) - '0'];
+        List<String> list = new LinkedList<String>();
+        for (String cur : res) {
+            for (int k = 0; k < keyboard.length(); k++) {
+                list.add(cur + keyboard.charAt(k));
+            }
+        }
+        res = list;
+    }
+    return res;
+}
+
+
+// Another Discussions
+public ArrayList<String> letterCombinations(String digits) {
+    ArrayList<String> res = new ArrayList<String>();
+        res.add("");
+    if(digits==null || digits.length()==0)
+        return res;
+    for(int i=0;i<digits.length();i++)
+    {
+        String letters = getLetters(digits.charAt(i));
+        ArrayList<String> newRes = new ArrayList<String>();
+        for(int j=0;j<res.size();j++)
+        {
+            for(int k=0;k<letters.length();k++)
+            {    
+                newRes.add(res.get(j)+Character.toString(letters.charAt(k)));
+            }
+        }
+        res = newRes;
+    }
+    return res;
+}
+private String getLetters(char digit)
+{
+    switch(digit)
+    {
+        case '2':
+            return "abc";
+        case '3':
+            return "def";
+        case '4':
+            return "ghi";
+        case '5':
+            return "jkl";
+        case '6':
+            return "mno";
+        case '7':
+            return "pqrs";
+        case '8':
+            return "tuv";
+        case '9':
+            return "wxyz";
+        case '0':
+            return " ";
+        default:
+            return "";
     }
 }

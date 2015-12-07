@@ -126,3 +126,39 @@ public void moveZeroes(int[] nums) {
         nums[insertPos++] = 0;
     }
 }
+
+
+Solution 1:
+It rerains ordering.
+Java代码  收藏代码
+// move all zeros to end of array, keep the non-zero elements order  
+public static void moveZeroToEnd(int[] A) {  
+    int n = A.length, cnt = 0;  
+    for(int i=0; i<n; i++) {  
+        if(A[i] != 0) {  
+            A[cnt++] = A[i];  
+        }  
+    }  
+    while(cnt < n) {  
+        A[cnt++] = 0;  
+    }  
+}  
+ 
+Solution 2:
+It does not keep the non-zero elements order.
+Java代码  收藏代码
+// move all zeros to end of array, does not keep the non-zero elements order  
+public static void moveZeroRight(int[] A) {  
+    for(int i=0, j=A.length-1; i<j; i++) {  
+        if(A[i] == 0) {  
+            while(j>i && A[j] == 0) j--;  
+            swap(A, i, j);  
+        }  
+    }  
+}  
+  
+private static void swap(int[] A, int i, int j) {  
+    int tmp = A[i];  
+    A[i] = A[j];  
+    A[j] = tmp;  
+}  

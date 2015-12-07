@@ -36,8 +36,20 @@ public class Solution {
     }
 }
 
+I guess the worst case running time is O(n). Right?
 
-// Pochman God
+reply
+Yes, for example, if most nodes in the tree only have one child (left child or right child) and node p and node q are in low position of the tree, then the program will not terminate until we find the correct node (by that time, we probably have nearly traversed the whole tree.)
+
+// Pochman God 
+O(1) Space
+public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    while ((root.val - p.val) * (root.val - q.val) > 0)
+        root = p.val < root.val ? root.left : root.right;
+    return root;
+}
+/*(in case of overflow, I'd do (root.val - (long)p.val) * (root.val - (long)q.val))*/
+
 public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
     while ((root.val - p.val) * (root.val - q.val) > 0)
         root = p.val < root.val ? root.left : root.right;

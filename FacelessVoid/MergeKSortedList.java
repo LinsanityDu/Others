@@ -14,7 +14,14 @@ public class Solution {
     }
 }
 
+Heap Complexity
+Suppose the total number of nodes is n The total time complexity if (n * log k) .For a priority queue, insertion takes logK time
+Divide and Conquer Complexity
+/*I think my code's complexity is also O(nlogk) and not using heap or priority queue, n means the total elements and k means the size of list.
 
+The mergeTwoLists functiony in my code comes from the problem Merge Two Sorted Lists whose complexity obviously is O(n), n is the sum of length of l1 and l2.
+
+To put it simpler, assume the k is 2^x, So the progress of combination is like a full binary tree, from bottom to top. So on every level of tree, the combination complexity is n, beacause every level have all n numbers without repetition. The level of tree is x, ie logk. So the complexity is O(nlogk).*/
 
 
 
