@@ -65,7 +65,32 @@ or the in-order solution, I think you can mimic the preorder solution as well. H
 
 
 
-// Diao Solution
+
+
+How about inorder flatten?
+要求是把一颗binary search tree 输出成 都是只有右节点的树。 因为不好画图，我就用数组表示树，经常做leetcode的同学应该知道什么意思。比如 [2,1,3] 这个BST， output 是[1,null,2,null,3] 要求 in place。
+// Inorder Flatten?
+// Easy to Understand
+    public void flatten(TreeNode root) {
+        if (root == null) return;
+
+        TreeNode left = root.left;
+        TreeNode right = root.right;
+        TreeNode leftMostInRight = right; 
+        while (leftMostInRight.left != null) {
+          leftMostInRight = leftMostInRight.left;
+        }
+        root.left = null;
+
+        flatten(left);
+        flatten(right);
+        while (left.right != null) left = left.right;
+        left.right = root;
+        root.right = leftMostInRight;
+    }
+
+    
+// Diao Solution preorder
 private TreeNode prev = null;
 
 public void flatten(TreeNode root) {
@@ -101,27 +126,3 @@ public class Solution {
 }
 
 
-
-
-
-How about inorder flatten?
-要求是把一颗binary search tree 输出成 都是只有右节点的树。 因为不好画图，我就用数组表示树，经常做leetcode的同学应该知道什么意思。比如 [2,1,3] 这个BST， output 是[1,null,2,null,3] 要求 in place。
-// Inorder Flatten?
-// Easy to Understand
-    public void flatten(TreeNode root) {
-        if (root == null) return;
-
-        TreeNode left = root.left;
-        TreeNode right = root.right;
-        TreeNode leftMostInRight = right; 
-        while (leftMostInRight.left != null) {
-          leftMostInRight = leftMostInRight.left;
-        }
-        root.left = null;
-
-        flatten(left);
-        flatten(right);
-        while (left.right != null) left = left.right;
-        left.right = root;
-        root.right = leftMostInRight;
-    }

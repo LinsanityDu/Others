@@ -1,3 +1,36 @@
+// This Method
+public int[][] multiply(int[][] A, int[][] B) {
+    int m = A.length, n = A[0].length, nB = B[0].length;
+    int[][] result = new int[m][nB];
+
+    List[] indexA = new List[m];
+    for(int i = 0; i < m; i++) {
+        List<Integer> numsA = new ArrayList<>();
+        for(int j = 0; j < n; j++) {
+            if(A[i][j] != 0){
+                numsA.add(j); 
+                numsA.add(A[i][j]);
+            }
+        }
+        indexA[i] = numsA;
+    }
+
+    for(int i = 0; i < m; i++) {
+        List<Integer> numsA = indexA[i];
+        for(int p = 0; p < numsA.size() - 1; p += 2) {
+            int colA = numsA.get(p);
+            int valA = numsA.get(p + 1);
+            for(int j = 0; j < nB; j ++) {
+                int valB = B[colA][j];
+                result[i][j] += valA * valB;
+            }
+        }
+    }
+
+    return result;   
+}
+
+
 /*小哥说既然你有machine learning经验，那来你应该知道很多特征vector/matrix都是稀疏的，这题我见过啊！！！感谢地里！！先问我sparse vector 怎么表示比较好，然后让写代码求两个sparse vector dot product。再follow up， 如果一个vector 比另一个大很多怎么办，答对于小的vector里每一个（index， value），在大的里binary search。然后问了复杂度。
 */
 
@@ -26,6 +59,32 @@ http://www.cs.cmu.edu/~scandal/cacm/node9.html
 如果都是sparse vectors,那思路就是把每个vector都表示成(index, non-zero value) pairs:
 A =[0,2,0,2,0,0,3,0,0,4] ==> A={(1,2), (3,2), (6,3), (9,4)}
 B=[0,0,0,0,5,0,2,0,0,8]  ==> B={(4,5), (6,2), (9,8)}
+/*类似于求intersection的方法
+Algorithm Intersection(arr1[], arr2[]):
+For Intersection of two arrays, print the element only if the element is present in both arrays.
+1) Use two index variables i and j, initial values i = 0, j = 0
+2) If arr1[i] is smaller than arr2[j] then increment i.
+3) If arr1[i] is greater than arr2[j] then increment j.
+4) If both are same then print any of them and increment both i and j.*/
+/*
+// Intersection
+    public static void intersection(int[] array1, int[] array2) {
+        int index1 = 0;
+        int index2 = 0;
+        while (index1 < array1.length && index2 < array2.length) {
+            if (array1[index1] < array2[index2]) {
+                index1++;
+            } else if (array1[index1] > array2[index2]) {
+                index2++;
+            } else {
+                System.out.println(array1[index1]);
+                index1++;
+                index2++;
+            }
+        }
+        return;
+    }*/
+
 
 for each index i,  a = val of pair (i, v_in_A), b= val of pair (i, v_in_B)
 dot_product(A,B) = sum_of ( a * b )  

@@ -3,7 +3,7 @@
 我的思路是跟LZ差不多，我是用Java的, 用HashMap 记录每个task(no matter char or other object), value 是index， 每次到一个task, 去hashMap 查询，如果查得到，并且currentIndex - index + 1 < 2. 时间就要补差值 1 or 2. 如果其他的情况，都可以直接运行task，然后更新hashMap
 
 给定任务AABCB, 冷却时间k（相同任务之间的最短距离时间），任务顺序不能变，问完成任务的总时间。
-例子：AABCB, k=2, A**ABC*B, 时间为8. .鐣欏璁哄潧-涓€浜�-涓夊垎鍦�
+例子：AABCB, k=2, A**ABC*B, 时间为8.
 解法：用hashtable保存上次的时间。
 Followup1：如果k很小，怎么优化？ 
 解法：之前的hashtable的大小是unique task的大小，如果k很小，可以只维护k那么大的hashtable。
@@ -12,7 +12,8 @@ Followup2: 如果可以改变任务的顺序，最短的任务时间是多少？
 解法：根据每个任务出现的频率排序，优先处理频率高的。但是具体细节没有时间讨论。
 感觉前两问回答的还好，就是细节和反应有点慢，最后一问没时间讨论。预感非常强，肯定会被加面，果然。
 
-
+感觉第一题的followup 是用LinkedHashMap去维护Ksize的list
+第二个followup可以用TreeMap，每次把最早的任务挑出来.
 /*- target arrangement I and II
 	1. you have serveral tasks. k is the interval time between two same task. you should keep the order of the tasks
 how much time you should spend to complete all the tasks:ABACD, 3 -> 7 because AB__ACD 

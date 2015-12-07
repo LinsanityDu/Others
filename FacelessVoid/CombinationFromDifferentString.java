@@ -1,3 +1,6 @@
+
+
+
 public class CombinationsFromDifferentString {
 	private List<String> getPermutate(List<String> words, int depth) {
 		List<String> result = new ArrayList<String>();

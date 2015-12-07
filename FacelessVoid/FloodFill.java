@@ -5,6 +5,52 @@
 0 0 0 0 1                   返回 5， 1， 2
 反正不难，DFS的时候check那个点有没有被访问过就好了。不过过程中有点小问题，reference有点没处理好。后来想改，甚至说了不需要reference了，可以直接返回int值，不需要这么麻烦了。但是面试官说算了，时间不多了，他知道了。
 
+import java.util.*;
+public class Solution{
+    
+    public List<Integer> getSize(int[][] matrix){
+        List<Integer> res = new ArrayList<Integer>();
+        if(matrix == null || matrix.length == 0){
+            return res;
+        }
+        int m = matrix.length, n = matrix[0].length;
+        boolean[][] marked = new boolean[m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                if(!marked[i][j] && matrix[i][j] == 1){
+                    res.add(dfs(matrix, i, j, marked));
+                }
+            }
+        }
+        return res;
+    }
+    
+    private int dfs(int[][] matrix, int i, int j, boolean[][] marked){
+        if(i < 0 || i >= matrix.length || j < 0 || j >= matrix[0].length){
+            return 0;
+        }
+        if(marked[i][j]){
+            return 0;
+        }
+        if(matrix[i][j] == 0){
+            return 0;
+        }
+        marked[i][j] = true;
+        return 1 + dfs(matrix, i + 1, j, marked) + dfs(matrix, i - 1, j, marked) + 
+            dfs(matrix, i, j + 1, marked) + dfs(matrix, i, j - 1, marked);
+    }
+    public static void main(String[] args){
+        //[["1", "0", "0", "1"],
+// ["1", "0", "0", "1"],
+// ["1", "1", "0", "0"]]i
+        int[][] matrix = {{1, 1, 1, 0},
+                          {1, 0, 1, 0},
+                          {1, 1, 0, 1}};
+        
+        Solution ins = new Solution();
+        System.out.println(ins.getSize(matrix));
+    }   
+}
 
 
 坑点： 1，看看是不是要求in-place, 还是要求返回一个新矩阵

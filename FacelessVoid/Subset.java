@@ -18,6 +18,7 @@ If nums = [1,2,3], a solution is:
 ]*/
 The mathematical definition of a set ensures the uniqueness of its elements. For a set of cardinality n, the number of its subsets is 2^n. A DFS will traverse every one of them. During each recursion, you can either choose this element or not, resulting in two recursive path.
 
+每个Subset的长度是N数量级 其实总复杂度为N*2^N
 　　Time complexity is O(2^n), where n is the cardinality of the set. Space complexity is O(n).
 
 public class Solution {
