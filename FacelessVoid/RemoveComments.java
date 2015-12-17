@@ -31,3 +31,54 @@ public class remove_comments{
     }
     
 }. visit 1point3acres.com for m
+
+
+// Given Program
+//    /* Test program */
+//    int main()
+//    {
+//       // variable declaration
+//       int a, b, c;
+//       /* This is a test
+//           multiline
+//           comment for
+//           testing */
+//    // b = a + c;
+//       a = b + c;
+//    }
+//
+//  Modified Program
+//    int main()
+//    {
+//              int a, b, c;
+//
+//           a = b + c;
+//    }
+ 
+ public String removeComment(String str) {
+  StringBuilder sb = new StringBuilder();
+  int n = str.length();
+  boolean singleComment = false;
+  boolean multiComment = false;
+  for (int i = 0; i < str.length(); i++) {
+   if (i + 1 < n && str.charAt(i) == '/' && str.charAt(i + 1) == '*') {
+    multiComment = true;
+    i++;
+   } else if (i + 1 < n && str.charAt(i) == '*' && str.charAt(i + 1) == '/') {
+    multiComment = false;
+    i++;
+   } else if (i + 1 < n && str.charAt(i) == '/' && str.charAt(i + 1) == '/') {
+    singleComment = true;
+    i++;
+   } else if (singleComment && str.charAt(i) == '\n') {
+    singleComment = false;
+    i++;
+   } else if (singleComment || multiComment) {
+    i++;
+    continue;
+   } else {
+    sb.append(str.charAt(i));
+   }
+  }
+  return sb.toString();
+ }

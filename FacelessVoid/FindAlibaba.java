@@ -10,6 +10,32 @@ strategy数组是不是稳赢的策略*/
 
 这道其实是老题了，之前就有出现过。很快这道题就会放到leetcode上的，你到时可以去试试。对于这道题，既然是判断时候稳赢，意思就是对于无论ali的起始位置在哪儿，我们都能抓到它。所以很自然，ali所在的位置肯定会作为状态的一部分。另外一个显然的需要记录的状态，就是strategy的当前位置。所以我们可以很容易写下如下的代码：
 
+nextDay[k][n] : 第k天，第n个房间小偷是否可以survive
+nextDay[i][j] = (nextDay[i-1][j-1] or nextDay[i-1][j+1]) && strategy[i] != j
+
+    // O(n*k) time, O(n) space
+    boolean canCatchTheft(int n, int strategy[]) {
+        int k = strategy.length;
+        // nextDay[i] means theft can survive in spot i or not on this day
+        boolean nextDay[] = new boolean[n]; 
+        boolean canSurvive, pre, a, b;
+        // init the first day
+        Arrays.fill(nextDay, true); nextDay[strategy[0]] = false;
+        for (int i = 1; i < k; ++i) { 
+            canSurvive = false; pre = false;
+            for (int j = 0; j < n; ++j) { 
+                a = j == 0 ? false : pre;
+                b = j == n - 1 ? false : nextDay[j + 1];
+                pre = nextDay[j]; // store current day for the next round
+                nextDay[j] = ((a || b) && strategy[i] != j) ? true : false;
+                if(nextDay[j] == true) canSurvive = true; 
+            }
+            if (!canSurvive) return true;
+        }
+        return false;
+    }
+    
+
 public static boolean catchAlibaba(int numCaves, int[] strategy){
         int i,j,l=strategy.length;
         boolean[][] dp = new boolean[numCaves][l];
@@ -33,6 +59,113 @@ public static boolean catchAlibaba(int numCaves, int[] strategy){
 public static void main(String[] args){
         System.out.println(catchAlibaba(3, new int[]{1,1}));
         System.out.println(catchAlibaba(4, new int[]{1,1,2,2,1}));
+}
+
+
+来自链接：http://www.mitbbs.com/article_t1/JobHunting/32978937_0_1.html 感觉挺难的，很难看懂。n * k 的matrix cut branch压根不知道讲的什么意思。DP还好理解些，希望老师和同学们能够给出详细的解释，多谢啦
+
+import java.io.*;
+import java.util.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+
+  private boolean canCatch(int n, int[] strategy) {
+    if (n <= 1) return true;
+    int m = strategy.length;
+    boolean dp[][] = new boolean[m][n];
+    dp[0][strategy[0]] = true;
+    for (int i = 1; i < m; i++) {
+      boolean escape = false;
+      for (int j = 0; j < n; j++) {
+        boolean pre = true;
+        boolean next = true;
+        if (j != 0) {
+          pre = dp[i - 1][j - 1];
+        }
+        if (j != n - 1) {
+          next = dp[i - 1][j + 1];
+        }
+        dp[i][j] = (pre && next) || strategy[i] == j;
+        if (!dp[i][j]) escape = true;
+      }
+      if (!escape) return true;
+    }
+    return false;
+  }
+
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    System.out.println(s.canCatch(7, new int[] {1,2,3,0,3,4,5,5,4,3,6,3,2,1}));
+    System.out.println(s.canCatch(7, new int[] {1,2,3,3,4,5,5,4,6,4,3,2,1}));
+    System.out.println(s.canCatch(4, new int[] {2, 1, 1, 2}));
+    System.out.println(s.canCatch(7, new int[] {1,2,3,3,4,5,5,4,6,4,3,2,1}));
+  
+  
+  
+//     s.printAllCombine(new char[] {'a', 'b', 'c', 'd'}, 3);
+//     {'a', 'b', 'c'}, 有一个整数值K，如果K＝2，输出aa,ab,ac,ba,bb,bc,ca,cb,cc?
+  
+  }
+}
+
+=========
+
+import java.io.*;
+import java.util.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+ 
+  private boolean canCatch(int n, int[] strategy) {
+    if (n <= 1) return true;
+    int m = strategy.length;
+    boolean dp[] = new boolean[n];
+    dp[strategy[0]] = true;
+    for (int i = 1; i < m; i++) {
+      boolean escape = false;
+      boolean old = false;
+      for (int j = 0; j < n; j++) {
+        boolean pre = true;
+        boolean next = true;
+        if (j != 0) {
+          pre = old;
+        }
+        if (j != n - 1) {
+          next = dp[j + 1];
+        }
+        old = dp[j];
+        dp[j] = (pre && next) || strategy[i] == j;
+        if (!dp[j]) escape = true;
+      }
+      if (!escape) return true;
+    }
+    return false;
+  }
+ 
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    System.out.println(s.canCatch(7, new int[] {1,2,3,0,3,4,5,5,4,3,6,3,2,1}));
+    System.out.println(s.canCatch(7, new int[] {1,2,3,3,4,5,5,4,6,4,3,2,1}));
+    System.out.println(s.canCatch(4, new int[] {2, 1, 1, 2}));
+    System.out.println(s.canCatch(7, new int[] {1,2,3,3,4,5,5,4,6,4,3,2,1}));
+   
+   
+   
+//     s.printAllCombine(new char[] {'a', 'b', 'c', 'd'}, 3);
+//     {'a', 'b', 'c'}, 有一个整数值K，如果K＝2，输出aa,ab,ac,ba,bb,bc,ca,cb,cc?
+   
+  }
 }
 
 

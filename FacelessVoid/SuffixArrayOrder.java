@@ -1,5 +1,116 @@
 首先定义了suffix string 或者说suffix arrary
     如果有个数组是 int[] text = {10, 20, 30, 25}
+   那么 suffix[0] = {10, 20, 30, 25}
+           suffix[1] = {20, 30, 25}
+           suffix[2] = {30, 25}
+           suffix[3] = {25}
+如果对这些数组进行lexical order 的排序，我们可以得到
+suffix[0] < suffix[1] < suffix[3] < suffix[2]
+问题是：
+    input: int[] text
+    output: int[] suffix_array_order. 鍥磋鎴戜滑@1point 3 acres
+e.g.
+input: int[] text = {10, 20, 30, 25}. more info on 1point3acres.com
+output: int[] suffix_array_order = {0, 1, 3, 2}
+第二题： input:  int[] text, int[] subText
+              output: boolean isExist;
+检查text数组中有没有一个subarray 是subText。要求时间小于O(N^2)， N == text.length;
+这里假设我们有了第一题的 suffix_array_order.-google 1point3acres
+
+(做法是binary search)
+
+import java.io.*;
+import java.util.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+ 
+  public static class Entry implements Comparable<Entry>{
+    int[] nums;
+    int idx;
+    public Entry(int[] nums, int idx) {
+      this.nums = nums;
+      this.idx = idx;
+    }
+   
+    public int compareTo(Entry entry2) {
+      return compare(nums, entry2.nums);
+    }
+  }
+ 
+  private static int compare(int[] nums1, int[] nums2) {
+    for (int i = 0; i < nums1.length && i < nums2.length; i++) {
+      if (nums1[i] == nums2[i]) {
+        continue;
+      }
+      return Integer.toString(nums1[i]).compareTo(Integer.toString(nums2[i]));
+    }
+    if (nums1.length < nums2.length) return -1;
+    else if (nums1.length == nums2.length) return 0;
+    else return 1;
+  }
+ 
+  private int[] sortSuffix(int[] nums) {
+    List<Entry> entries = new ArrayList<>();
+    for (int i = 0; i < nums.length; i++) {
+      int tmp[] = new int[nums.length - i];
+      for (int j = 0; j < tmp.length; j++) {
+        tmp[j] = nums[i + j];
+      }
+      Entry entry = new Entry(tmp, i);
+      entries.add(entry);
+    }
+    Collections.sort(entries);
+    int[] res = new int[nums.length];
+    for (int i = 0; i < res.length; i++) {
+      res[i] = entries.get(i).idx;
+      System.out.println(res[i]);
+    }
+    return res;
+  }
+ 
+  private boolean containSubArr(int[] nums, int subArr[], int[] suffix) {
+    int s = 0;
+    int e = nums.length - 1;
+    while (s <= e) {
+      int m = s + (e - s) / 2;
+      int idx = suffix[m];
+      int compare = 0;
+      int i = 0;
+      for (; i < subArr.length; i++) {
+        if (idx + i >= nums.length) {
+          compare = 1;
+          break;
+        }
+        if (subArr[i] != nums[idx + i]) {
+          compare = Integer.toString(subArr[i]).compareTo(Integer.toString(nums[idx + i]));
+          break;
+        }
+      }
+      if (compare == 0) return true;
+      else if (compare < 0) e = m - 1;
+      else s = m + 1;
+    }
+    return false;
+  }
+ 
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    int[] nums = new int[]{10, 20, 30, 25, 40, 50, 60, 10};
+    int[] suffixArray = s.sortSuffix(nums);
+    int[] sub = new int[]{10, 10};
+    System.out.println(s.containSubArr(nums, sub, suffixArray));
+  }
+}
+
+
+首先定义了suffix string 或者说suffix arrary
+    如果有个数组是 int[] text = {10, 20, 30, 25}
    那么 suffix[0] = {10, 20, 30, 25}. from: 1point3acres.com/bbs 
            suffix[1] = {20, 30, 25}. 1point 3acres 璁哄潧
            suffix[2] = {30, 25}

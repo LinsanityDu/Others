@@ -1,4 +1,5 @@
 输出BST中最大的K个值，其实就是反方向的inorder traversal?
+下面的是正方向的Inorder
 // DFS -> Iterative
 public int kthSmallest(TreeNode root, int k) {
         Stack<TreeNode> st = new Stack<>();

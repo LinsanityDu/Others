@@ -1,4 +1,46 @@
+如果是按照reservoir sampling，应该是用一个count算maximum的个数 
+从头到尾一次便利就可以，先让array[0]作为选出的maximum，当前元素比之前的大，就直接替换，count = 1，遇到当前比选出的元素小的，忽略，一样的，用1/count的概率替换
 
+public class findIndexOfMaxValue {
+    public int find(int[] A) {
+        Random rand = new Random();
+        int[] reservior = new int[1];
+        int maxValue = Integer.MIN_VALUE;
+        int numOfMaxValue = 0;
+        for(int i = 0; i < A.length; i++) {
+            if(A[i] == maxValue) {
+                numOfMaxValue++;
+                int randNum = rand.nextInt(numOfMaxValue);
+                if(randNum < 1) {
+                    reservior[0] = i;
+                }
+            }
+
+            if(A[i] > maxValue) {
+                maxValue = A[i];
+                numOfMaxValue = 1;
+                reservior[0] = i;
+            }
+        }
+        return reservior[0];
+    }   
+    public static void main(String[] args) {
+        findIndexOfMaxValue example = new findIndexOfMaxValue();
+        int count4 = 0, count6 = 0;
+        int[] A = {1,2,3,4,5,3,5};
+        for(int i = 0; i<10000; i++) {  
+            int res = example.find(A);
+            if(res == 4) {
+                count4 ++;
+            }
+            if(res == 6) {
+                count6 ++;
+            }
+        }
+        System.out.println("6 appears " + count6 + " times");
+        System.out.println("4 appears " + count4 + " times");
+        }
+}
 
 // This is the text editor interface. 
 // Anything you type or change here will be seen by the other person in real time.

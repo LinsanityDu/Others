@@ -13,31 +13,7 @@ Your algorithm should use only constant space. You may not modify the values in 
  *     ListNode(int x) { val = x; }
  * }
  */
-// My Code
-public class Solution {
-    public ListNode swapPairs(ListNode head) {
-        if (head == null || head.next == null) return head;
-        ListNode dummy = new ListNode(0);
-        dummy.next = head;
-        ListNode prev = dummy;
-        ListNode cur = head;
-        ListNode next = head.next;
-        while (cur.next != null) {
-            ListNode temp = next.next;
-            prev.next = next;
-            next.next = cur;
-            cur.next = temp;
-            prev = cur;
-            cur = temp;
-            if (cur == null) {
-                break;
-            } else {
-                next = cur.next;
-            }
-        }
-        return dummy.next;
-    }
-}
+
 
 
 // Recursion extra space
@@ -72,3 +48,58 @@ public class Solution {
         return head.next;
     }
 }
+
+// Nine Chapter
+public class Solution {
+    /**
+     * @param head a ListNode
+     * @return a ListNode
+     */
+    public ListNode swapPairs(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        
+        head = dummy;
+        while (head.next != null && head.next.next != null) {
+            ListNode n1 = head.next, n2 = head.next.next;
+            // head->n1->n2->...
+            // => head->n2->n1->...
+            head.next = n2;
+            n1.next = n2.next;
+            n2.next = n1;
+            
+            // move to next pair
+            head = n1;
+        }
+        
+        return dummy.next;
+    }
+}
+
+
+// My Code
+public class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if (head == null || head.next == null) return head;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode prev = dummy;
+        ListNode cur = head;
+        ListNode next = head.next;
+        while (cur.next != null) {
+            ListNode temp = next.next;
+            prev.next = next;
+            next.next = cur;
+            cur.next = temp;
+            prev = cur;
+            cur = temp;
+            if (cur == null) {
+                break;
+            } else {
+                next = cur.next;
+            }
+        }
+        return dummy.next;
+    }
+}
+

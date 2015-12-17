@@ -3,6 +3,9 @@
 For example,
 path = "/home/", => "/home"
 path = "/a/./b/../../c/", => "/c"*/
+The star means “zero or more of the previous character.” So the regex Bb* will match “B”, “Bb”, “Bbb”, “Bbbb”, and so on. (Note that you must have the capital B, or the match will fail; the B must match before b* can try to.)
+
+The plus means “one or more of the previous character.” So the regex Bb+ will match “Bb”, “Bbb”, “Bbbb”, and so on, but will not match “B” by itself.
 
 public class Solution {
     public String simplifyPath(String path) {
@@ -27,7 +30,20 @@ public class Solution {
         return result;
     }
 }
+// 
+The main idea is to push to the stack every valid file name (not in {"",".",".."}), popping only if there's smth to pop and we met "..". I don't feel like the code below needs any additional comments.
 
+public String simplifyPath(String path) {
+    Deque<String> stack = new LinkedList<>();
+    Set<String> skip = new HashSet<>(Arrays.asList("..",".",""));
+    for (String dir : path.split("/")) {
+        if (dir.equals("..") && !stack.isEmpty()) stack.pop();
+        else if (!skip.contains(dir)) stack.push(dir);
+    }
+    String res = "";
+    for (String dir : stack) res = "/" + dir + res;
+    return res.isEmpty() ? "/" : res;
+}
 
 // Discussion
 public String simplifyPath(String path) {

@@ -56,7 +56,7 @@ public class Solution {
         int sum = 0;
         for (int i = 0; i < len; i++) {
             sum += nums[i];
-           
+           如果target不是0 就是查看sum - target在不在map里面 
             if (map.containsKey(sum)) {
                 ans.add(map.get(sum) + 1);
                 ans.add(i);

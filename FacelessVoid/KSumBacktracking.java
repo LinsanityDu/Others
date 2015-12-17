@@ -38,6 +38,18 @@ public class Solution {
     }
 }
 
+state: f[i][j][t]前i个数取j个数出来能否和为t
+
+function: f[i][j][t] = f[i - 1][j - 1][t - a[i]] or
+
+ f[i - 1][j][t]
+
+1. 问是否可行 (DP) - f[x][0][0] = true
+
+2. 问方案总数 (DP) - f[x][0][0] = 1
+
+3. 问所有方案 (递归/搜索)
+
 // K Sum How many solutions?
 public class Solution {
     /**

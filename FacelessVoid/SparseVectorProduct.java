@@ -53,7 +53,25 @@ public int[][] multiply(int[][] A, int[][] B) {
 第一题我是用的arraylist来存的，比较省空间，然后能保持index有序性，hashtable存的话follow up就不能二分法了吧。
 因为你只保存了非0元素呀，vector是稀疏的，这样就只需要保存很少。 hashmap存的话算dot product是没问题的，但Follow up里(index, value)表示后的向量一个很长，一个很短的话，就不能用二分查找了。我觉得是这样
 
-
+int start = 0, end = nums.length - 1;
+        while (start + 1 < end) {
+            int mid = start + (end - start) / 2;
+            if (nums[mid] == target) {
+                end = mid;  
+            } else if (nums[mid] < target) {
+                start = mid;
+            } else {
+                end = mid;
+            }
+        }
+        if (nums[start] == target) {
+            return start;
+        }
+        if (nums[end] == target) {
+            return end;
+        }
+        return -1;
+        
 http://www.cs.cmu.edu/~scandal/cacm/node9.html
 
 如果都是sparse vectors,那思路就是把每个vector都表示成(index, non-zero value) pairs:

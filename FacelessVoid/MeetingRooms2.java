@@ -12,6 +12,35 @@ return 2.*/
            比如 区间： 2,3 | 3,5 | 4,5 | 1,5 | 1,2         那么4和5都是答案
 这个题，把所有线段的起始点和终点排序，然后遍历，设置一个counter，遇到起始点就加1，遇到终点就减1，找counter的最大值就可以了。注意排序的时候，如果一个起始点和一个终点的值相同，起始点放前面。
 
+/*Consider a big party where a log register for guest’s entry and exit times is maintained. Find the time at which there are maximum guests in the party. Note that entries in register are not in any order.*/
+
+private static List<Integer> findMaxOverlap(int[] enter, int[] exit) {
+    Arrays.sort(enter);
+    Arrays.sort(exit);
+    int maxCount = 0;
+    int i = 0;
+    int j = 0;
+    int count = 0;
+    List<Integer> res = new ArrayList<>();
+    while (i < enter.length) {
+      if (enter[i] <= exit[j]) {
+        count++;
+        if (count > maxCount) {
+          maxCount = count;
+          res.clear();
+          res.add(enter[i]);
+        } else if (count == maxCount) {
+          res.add(enter[i]);
+        }
+        i++;
+      } else {
+        count--;
+        j++;
+      }
+    }
+    return res;
+  }
+  
 /**
  * Definition of Interval:
  * public classs Interval {

@@ -49,6 +49,36 @@ public class TaskArrangeMentI {
 	}
 }
 
+2）Task Schedule 
+Tasks : AABABCD. more info on 1point3acres.com
+Cooled Time: 2
+output ： 输出总共时间
+要求保持Tasks 的执行顺序不变。执行一个task的时间是1， 求执行tasks系列一共需要多少时间，比如他的例子： A－－AB－ABCD return 10
+
+public int getTime(String str, int cool) {
+    HashMap<Character, Integer> map = new HashMap<>();
+    int i = 0;
+    int time = 0;
+    while (i < str.length()) {
+      char c = str.charAt(i);
+      if (!map.containsKey(c) || map.get(c) <= time) {
+        map.put(c, time + cool + 1);
+        i++;
+        time++;
+      } else {
+        time = map.get(c);
+      }
+    }
+    return time;
+  }
+
+  public static void main(String[] args) {
+    Solution s = new Solution();
+    System.out.println(s.getTime("AABABCD", 2));
+  }
+
+
+  
 
 int taskScheduler(String s) {
 	char cold1 = '*';

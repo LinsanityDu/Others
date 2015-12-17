@@ -88,7 +88,7 @@ public class Solution {
 }
 
 
-// 次数
+// 只要求一个返回String次数
 import java.util.*;
 public class Solution{
     
@@ -124,6 +124,29 @@ public class Solution{
         return sb.toString();
     }
     
+
+    或者
+    public static String balance2(String s) {
+          Stack<Integer> stk = new Stack<Integer>();
+          StringBuilder sb = new StringBuilder(s);
+          for (int i = 0; i < s.length(); i++) {
+           char c = s.charAt(i);
+           if (c == ')') {
+            if (stk.isEmpty() || s.charAt(stk.peek()) == ')') {
+             stk.push(i);
+            } else {
+             stk.pop();
+            }
+           } else {
+            stk.push(i);
+           }
+          }
+          while (!stk.isEmpty()) {
+           sb.deleteCharAt(stk.pop());
+          }
+          return sb.toString();
+    }
+
     public String balance2(String str){
         if(str == null || str.length() == 0){
             return str;

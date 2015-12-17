@@ -56,3 +56,62 @@ class MyQueue {
 		System.out.println("Front:\t" + queue[front] + "\tEnd:\t" + queue[end] + "\n");
 	}
 }
+
+
+// Another
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+ 
+  int nums[];
+  int head = 0;
+  int size = 0;
+  int count = 0;
+ 
+  public Solution(int n) {
+    this.size = n;
+    this.nums = new int[n];
+  }
+ 
+  private void enque(int v) {
+    if (count == size) {
+      System.out.println("queue is full");
+      return;
+    }
+    nums[(head + count) % size] = v;
+    count++;
+  }
+ 
+  private int deque() {
+    if (count == 0) {
+      System.out.println("queue is empty");
+      return 0;
+    }
+    int res = nums[head];
+    head++;
+    if (head == size) head = 0;
+    count--;
+    return res;
+  }
+ 
+  public static void main(String[] args) {
+    Solution s = new Solution(2);
+    s.enque(1);
+    s.enque(2);
+    System.out.println(s.deque());
+    s.enque(3);
+    System.out.println(s.deque());
+    s.enque(4);
+    System.out.println(s.deque());
+    System.out.println(s.deque());
+    System.out.println(s.deque());
+  }
+}
