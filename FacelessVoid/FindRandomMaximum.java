@@ -22,6 +22,7 @@ public static int index(int[] nums) {
 2 pass, o(n) time, o(n) space， 欢迎拍砖
 
 2 pass, o(n) time, o(1) space， 欢迎拍砖
+
 public static int index0(int[] nums) {
 int max = Integer.MIN_VALUE;
 for (int i = 0; i < nums.length; i++) {

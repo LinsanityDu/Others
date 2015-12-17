@@ -20,4 +20,8 @@ public class Solution {
 		int carry = (a & b) << 1;
 		return addOneHelper(sum, carry);
 	}
+
+	public static void main(String[] args) {
+		
+	}
 }

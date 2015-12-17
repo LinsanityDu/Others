@@ -1,3 +1,29 @@
+Closet Bianry Serach Tree Value
+// Pochman god recursive
+public int closestValue(TreeNode root, double target) {
+    int a = root.val;
+    TreeNode kid = target < a ? root.left : root.right;
+    if (kid == null) return a;
+    int b = closestValue(kid, target);
+    return Math.abs(a - target) < Math.abs(b - target) ? a : b;
+}
+
+
+// Iterative
+public int closestValue(TreeNode root, double target) {
+        int closestVal = root.val; 
+        while(root != null){ 
+            //update closestVal if the current value is closer to target
+            closestVal = (Math.abs(target - root.val) < Math.abs(target - closestVal))? root.val : closestVal;
+            if(closestVal == target){   //already find the best result
+                return closestVal;
+            }
+            root = (root.val > target)? root.left: root.right;   //binary search
+        }
+        return closestVal;
+  }
+  
+
 2. Given the root of a binary search tree of integers and another integer ‘target’, find the number which is just smaller and just larger than the target.
 其实就是找inorder traversal的predecessor 和 successor。但是这样的complexity是linear的，问能不能优化，我就说可以binary search 到target， 说不定能到O(log(n))。当时犹豫的点是，找到了inorder succesor, 还得记录parent啥的。总之大脑一片混乱。。讨论了不少example，花费了很多时间。。。最后还是没搞清，说不如直接写code吧。
 写着其实就明白了，就是search到target， 同时update相应的smaller number 和 larger number。代码如下。 最后找到的时候，还要看看children的情况。。。。

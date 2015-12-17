@@ -5,7 +5,7 @@
 数组中的数如果有重复则需要去重，不允许用set。
 
 比如给 [2,2,2] 返回 [2,4,8]，顺序不用管。*/
-
+这个答案不对，看下一个！
 
 public List<Integer> combinePrimeProduct(int[] primes) {  
     Arrays.sort(primes);  

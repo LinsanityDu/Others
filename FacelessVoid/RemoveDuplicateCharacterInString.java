@@ -15,4 +15,4 @@ class Solution{
         }
         return new String(result);
     }
-}. 1poin
+}
